@@ -1,0 +1,4030 @@
+@prefix : <https://w3id.org/hi-ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix hi: <https://w3id.org/hi-ontology#> .
+@prefix wd: <https://www.wikidata.org/entity/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix hcio: <urn:absolute:dev.nemo.inf.ufes.br/hcion/HCIO.owl#> .
+@prefix hint: <https://w3id.org/hi-thesaurus/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix schema: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix caresses: <http://caressesrobot.org/ontology#> .
+@base <https://w3id.org/hi-ontology#> .
+
+<https://w3id.org/hi-ontology#> rdf:type owl:Ontology ;
+                                 dc:description "Conceptual model of Hybrid Intelligence: agents, teams, goals, tasks, capabilities, methods, evaluations, context, and ethical phenomena."@en ;
+                                 dc:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                 dc:title "The Hybrid Intelligence (HI) Ontology"@en ;
+                                 dcterms:created "2025-10-01"^^xsd:date ;
+                                 vann:preferredNamespacePrefix "hi" ;
+                                 vann:preferredNamespaceUri "https://w3id.org/hi-ontology#" ;
+                                 owl:versionInfo "2.0.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/license
+dc:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+###  http://schema.org/name
+schema:name rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+skos:exactMatch rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/hi-ontology#hasInteractionIntentConcep
+hi:hasInteractionIntentConcep rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/hi-ontology#validatesAIOutput
+hi:validatesAIOutput rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/hi-ontology#achievesOutcome
+hi:achievesOutcome rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:Agent ;
+                   rdfs:range hi:Outcome ;
+                   owl:propertyChainAxiom ( hi:performsAction
+                                            hi:producesOutcome
+                                          ) ;
+                   rdfs:label "achieves outcome" .
+
+
+###  https://w3id.org/hi-ontology#affectsAgent
+hi:affectsAgent rdf:type owl:ObjectProperty ;
+                rdfs:domain hi:Risk ;
+                rdfs:range hi:Agent ;
+                rdfs:label "affects agent" .
+
+
+###  https://w3id.org/hi-ontology#allowsTask
+hi:allowsTask rdf:type owl:ObjectProperty ;
+              owl:inverseOf hi:requiresCapability ;
+              rdfs:domain hi:Capability ;
+              rdfs:range hi:Task ;
+              rdfs:comment "A capability enables or allows a task to be performed."@en ;
+              rdfs:label "allows task" .
+
+
+###  https://w3id.org/hi-ontology#analyzesMedicalImage
+hi:analyzesMedicalImage rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:RadiotherapyAI ;
+                        rdfs:range hi:MedicalImageAnalysisTask ;
+                        rdfs:label "analyzes medical image"@en .
+
+
+###  https://w3id.org/hi-ontology#annotatedBy
+hi:annotatedBy rdf:type owl:ObjectProperty ;
+               rdfs:domain hi:AnnotationEvaluation ;
+               rdfs:range hi:HumanAnnotator ;
+               rdfs:label "annotated by"@en .
+
+
+###  https://w3id.org/hi-ontology#belongsToCohort
+hi:belongsToCohort rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:HumanAgent ;
+                   rdfs:range hi:GenerationalCohort ;
+                   rdfs:label "belongs to cohort"@en .
+
+
+###  https://w3id.org/hi-ontology#categorizesAs
+hi:categorizesAs rdf:type owl:ObjectProperty ;
+                 rdfs:domain hi:TaskExecution ;
+                 rdfs:range hi:MemoryCategory ;
+                 rdfs:label "categorizes as"@en .
+
+
+###  https://w3id.org/hi-ontology#communicatesWithHuman
+hi:communicatesWithHuman rdf:type owl:ObjectProperty ;
+                         owl:inverseOf hi:interactsWithAGV ;
+                         rdfs:domain hi:AGV ;
+                         rdfs:range hi:HumanAgent ;
+                         rdfs:label "communicates with human"@en .
+
+
+###  https://w3id.org/hi-ontology#conductedInEnvironment
+hi:conductedInEnvironment rdf:type owl:ObjectProperty ;
+                          rdfs:domain [ rdf:type owl:Class ;
+                                        owl:unionOf ( hi:Experiment
+                                                      hi:Task
+                                                    )
+                                      ] ;
+                          rdfs:range hi:WarehouseEnvironment ;
+                          rdfs:label "conducted in environment"@en .
+
+
+###  https://w3id.org/hi-ontology#dependsOnCapability
+hi:dependsOnCapability rdf:type owl:ObjectProperty ,
+                                owl:TransitiveProperty ;
+                       rdfs:domain hi:Capability ;
+                       rdfs:range hi:Capability ;
+                       rdfs:label "depends on capability" .
+
+
+###  https://w3id.org/hi-ontology#doneBy
+hi:doneBy rdf:type owl:ObjectProperty ;
+          owl:inverseOf hi:performsAction ;
+          rdfs:domain hi:Action ;
+          rdfs:range hi:Agent ;
+          rdfs:label "done by" .
+
+
+###  https://w3id.org/hi-ontology#emergesFrom
+hi:emergesFrom rdf:type owl:ObjectProperty ;
+               rdfs:domain hi:Risk ;
+               rdfs:range hi:UseCase ;
+               rdfs:label "emerges from" .
+
+
+###  https://w3id.org/hi-ontology#evaluatedBy
+hi:evaluatedBy rdf:type owl:ObjectProperty ;
+               rdfs:domain hi:TaskExecution ;
+               rdfs:range hi:Evaluation ;
+               rdfs:comment "Execution is evaluated by a defined evaluation."@en ;
+               rdfs:label "evaluated by" .
+
+
+###  https://w3id.org/hi-ontology#evaluatesTask
+hi:evaluatesTask rdf:type owl:ObjectProperty ;
+                 rdfs:domain hi:TrustEvaluation ;
+                 rdfs:range hi:Task ;
+                 rdfs:label "evaluates task"@en .
+
+
+###  https://w3id.org/hi-ontology#executesTask
+hi:executesTask rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf hi:isAssignedToTask ;
+                rdfs:domain hi:Agent ;
+                rdfs:range hi:Task ;
+                owl:propertyChainAxiom ( hi:performsExecution
+                                         hi:realizesTask
+                                       ) ;
+                rdfs:comment "Agent executes a task (derivable from Agent→Execution→Task)."@en ;
+                rdfs:label "executes task" .
+
+
+###  https://w3id.org/hi-ontology#experiencedInContext
+hi:experiencedInContext rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:Emotion ;
+                        rdfs:range hi:Context ;
+                        rdfs:label "experienced in context" .
+
+
+###  https://w3id.org/hi-ontology#experiencesEmotion
+hi:experiencesEmotion rdf:type owl:ObjectProperty ;
+                      rdfs:domain hi:HumanAgent ;
+                      rdfs:range hi:Emotion ;
+                      rdfs:label "experiences emotion" .
+
+
+###  https://w3id.org/hi-ontology#facilitatesStudy
+hi:facilitatesStudy rdf:type owl:ObjectProperty ;
+                    rdfs:domain hi:HCIExpert ;
+                    rdfs:range hi:UsabilityStudy ;
+                    rdfs:label "facilitates study"@en .
+
+
+###  https://w3id.org/hi-ontology#feedsinto
+hi:feedsinto rdf:type owl:ObjectProperty ;
+             rdfs:domain hi:FeedbackLoop ;
+             rdfs:range hi:Agent ;
+             rdfs:label "feeds into" .
+
+
+###  https://w3id.org/hi-ontology#hasAgentConcept
+hi:hasAgentConcept rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:Agent ;
+                   rdfs:range skos:Concept ;
+                   rdfs:comment "Links an agent to a concept in the HINT thesaurus."@en ;
+                   rdfs:label "has agent concept" .
+
+
+###  https://w3id.org/hi-ontology#hasAgentInvolved
+hi:hasAgentInvolved rdf:type owl:ObjectProperty ;
+                    rdfs:domain hi:Interaction ;
+                    rdfs:range hi:Agent ;
+                    rdfs:comment "Indicates an agent that participates in or contributes to an interaction episode. This property identifies the human or artificial agents involved in the exchange."@en ;
+                    rdfs:label "has agent involved" .
+
+
+###  https://w3id.org/hi-ontology#hasAgentLimitation
+hi:hasAgentLimitation rdf:type owl:ObjectProperty ,
+                               owl:AsymmetricProperty ;
+                      rdfs:domain hi:Agent ;
+                      rdfs:range hi:AgentLimitation ;
+                      rdfs:label "has agent limitation" .
+
+
+###  https://w3id.org/hi-ontology#hasCapability
+hi:hasCapability rdf:type owl:ObjectProperty ;
+                 owl:inverseOf hi:isCapabilityOf ;
+                 rdfs:domain hi:Agent ;
+                 rdfs:range hi:Capability ;
+                 rdfs:comment "Agent possesses a capability."@en ;
+                 rdfs:label "has capability" .
+
+
+###  https://w3id.org/hi-ontology#hasCapabilityConcept
+hi:hasCapabilityConcept rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:Capability ;
+                        rdfs:range skos:Concept ;
+                        rdfs:comment "Links a capability to a concept in the HINT thesaurus."@en ;
+                        rdfs:label "has capability concept" .
+
+
+###  https://w3id.org/hi-ontology#hasConstraintConcept
+hi:hasConstraintConcept rdf:type owl:ObjectProperty ;
+                        rdfs:domain [ rdf:type owl:Class ;
+                                      owl:unionOf ( hi:Agent
+                                                    hi:Context
+                                                    hi:HITeam
+                                                  )
+                                    ] ;
+                        rdfs:range skos:Concept ;
+                        rdfs:comment "Specifies the constraint using a concept in the HINT thesaurus."@en ;
+                        rdfs:label "has constraint concept" .
+
+
+###  https://w3id.org/hi-ontology#hasContextConcept
+hi:hasContextConcept rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:Context ;
+                     rdfs:range skos:Concept ;
+                     rdfs:comment "Links a context to a concept in the HINT thesaurus."@en ;
+                     rdfs:label "has context concept" .
+
+
+###  https://w3id.org/hi-ontology#hasDomainConcept
+hi:hasDomainConcept rdf:type owl:ObjectProperty ;
+                    rdfs:domain hi:UseCase ;
+                    rdfs:range skos:Concept ;
+                    rdfs:comment "Links a domain to a concept in the HINT thesaurus."@en ;
+                    rdfs:label "has domain concept" .
+
+
+###  https://w3id.org/hi-ontology#hasEthicalConsideration
+hi:hasEthicalConsideration rdf:type owl:ObjectProperty ;
+                           rdfs:domain hi:UseCase ;
+                           rdfs:range hi:EthicalConsideration ;
+                           rdfs:label "has ethical considerations" .
+
+
+###  https://w3id.org/hi-ontology#hasEvaluationConcept
+hi:hasEvaluationConcept rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:Evaluation ;
+                        rdfs:range skos:Concept ;
+                        rdfs:comment "Links an evaluation to a concept in the HINT thesaurus."@en ;
+                        rdfs:label "has evaluation concept" .
+
+
+###  https://w3id.org/hi-ontology#hasExecutionConcept
+hi:hasExecutionConcept rdf:type owl:ObjectProperty ;
+                       rdfs:domain hi:TaskExecution ;
+                       rdfs:range skos:Concept ;
+                       rdfs:comment "Links an experiment to a concept in the HINT thesaurus."@en ;
+                       rdfs:label "has execution concept" .
+
+
+###  https://w3id.org/hi-ontology#hasExperiment
+hi:hasExperiment rdf:type owl:ObjectProperty ;
+                 rdfs:domain hi:Evaluation ;
+                 rdfs:range hi:Experiment ;
+                 rdfs:comment "An evaluation has an experiment."@en ;
+                 rdfs:label "has experiment" .
+
+
+###  https://w3id.org/hi-ontology#hasExperimentConcept
+hi:hasExperimentConcept rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:Experiment ;
+                        rdfs:range skos:Concept ;
+                        rdfs:comment "Links an experiment to a concept in the HINT thesaurus."@en ;
+                        rdfs:label "has experiment concept" .
+
+
+###  https://w3id.org/hi-ontology#hasGoal
+hi:hasGoal rdf:type owl:ObjectProperty ;
+           rdfs:domain hi:HITeam ;
+           rdfs:range hi:Goal ;
+           rdfs:comment "An HI team pursues one or more goals."@en ;
+           rdfs:label "has goal" .
+
+
+###  https://w3id.org/hi-ontology#hasGoalConcept
+hi:hasGoalConcept rdf:type owl:ObjectProperty ;
+                  rdfs:domain hi:Goal ;
+                  rdfs:range skos:Concept ;
+                  rdfs:comment "Links a goal to a concept in the HINT thesaurus."@en ;
+                  rdfs:label "has goal concept" .
+
+
+###  https://w3id.org/hi-ontology#hasHITeam
+hi:hasHITeam rdf:type owl:ObjectProperty ;
+             rdfs:domain hi:UseCase ;
+             rdfs:range hi:HITeam ;
+             rdfs:comment "A use case introduces a hybrid intelligence team."@en ;
+             rdfs:label "has HI team" .
+
+
+###  https://w3id.org/hi-ontology#hasInfluenceOn
+hi:hasInfluenceOn rdf:type owl:ObjectProperty ;
+                  owl:inverseOf hi:isInfluencedBy ;
+                  rdfs:domain hi:Context ;
+                  rdfs:range hi:HITeam ;
+                  rdfs:comment "Relates a contextual condition to the HI team whose actions, collaboration dynamics, or task performance are influenced by that condition. It captures how background phenomena and constraints shape the team's operation in a given use case."@en ;
+                  rdfs:label "has influence on" .
+
+
+###  https://w3id.org/hi-ontology#hasInteractionEpisode
+hi:hasInteractionEpisode rdf:type owl:ObjectProperty ;
+                         rdfs:domain hi:TaskExecution ;
+                         rdfs:range hi:Interaction ;
+                         rdfs:comment "Identifies moments of interaction (e.g., dialogue, negotiation, or guidance) that unfold within the execution of a task."@en ;
+                         rdfs:label "has interaction episode" .
+
+
+###  https://w3id.org/hi-ontology#hasInteractionIntentConcept
+hi:hasInteractionIntentConcept rdf:type owl:ObjectProperty ;
+                               rdfs:domain hi:Interaction ;
+                               rdfs:range skos:Concept ;
+                               rdfs:comment "Intent underlying the interaction (e.g., explain, request, negotiate)."@en ;
+                               rdfs:label "has interaction intent concept" .
+
+
+###  https://w3id.org/hi-ontology#hasInteractionModalityConcept
+hi:hasInteractionModalityConcept rdf:type owl:ObjectProperty ;
+                                 rdfs:domain hi:Interaction ;
+                                 rdfs:range skos:Concept ;
+                                 rdfs:comment "Modality/channel used during the interaction."@en ;
+                                 rdfs:label "has interaction modality concept" .
+
+
+###  https://w3id.org/hi-ontology#hasKnowledge
+hi:hasKnowledge rdf:type owl:ObjectProperty ;
+                rdfs:domain hi:Agent ;
+                rdfs:range hi:Knowledge ;
+                rdfs:label "has knowledge" .
+
+
+###  https://w3id.org/hi-ontology#hasLearningObjective
+hi:hasLearningObjective rdf:type owl:ObjectProperty ;
+                        rdfs:domain hi:Goal ;
+                        rdfs:range hi:LearningObjective ;
+                        rdfs:label "has learning objective" .
+
+
+###  https://w3id.org/hi-ontology#hasMember
+hi:hasMember rdf:type owl:ObjectProperty ;
+             rdfs:domain hi:HITeam ;
+             rdfs:range hi:Agent ;
+             rdfs:comment "Specifies agents that are members of an HI team."@en ;
+             rdfs:label "has member" .
+
+
+###  https://w3id.org/hi-ontology#hasMethodConcept
+hi:hasMethodConcept rdf:type owl:ObjectProperty ;
+                    rdfs:domain hi:TaskExecution ;
+                    rdfs:range skos:Concept ;
+                    rdfs:comment "Links a task execution to a method in the HINT thesaurus."@en ;
+                    rdfs:label "has method concept" .
+
+
+###  https://w3id.org/hi-ontology#hasMetricConcept
+hi:hasMetricConcept rdf:type owl:ObjectProperty ;
+                    rdfs:domain hi:Evaluation ;
+                    rdfs:range skos:Concept ;
+                    rdfs:comment "An evaluation uses certain metrics, defined in the HINT thesaurus"@en ;
+                    rdfs:label "has metric concept" .
+
+
+###  https://w3id.org/hi-ontology#hasMetricTested
+hi:hasMetricTested rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:Experiment ;
+                   rdfs:range skos:Concept ;
+                   rdfs:comment "An experiment tests certain metrics, defined in the HINT thesaurus"@en ;
+                   rdfs:label "has metric tested" .
+
+
+###  https://w3id.org/hi-ontology#hasPhenomenonConcept
+hi:hasPhenomenonConcept rdf:type owl:ObjectProperty ;
+                        rdfs:domain [ rdf:type owl:Class ;
+                                      owl:unionOf ( hi:Agent
+                                                    hi:Context
+                                                    hi:HITeam
+                                                  )
+                                    ] ;
+                        rdfs:range skos:Concept ;
+                        rdfs:comment "Context exhibits a phenomenon (e.g., bias/feedback emerges in that context)."@en ;
+                        rdfs:label "has phenomenon concept" .
+
+
+###  https://w3id.org/hi-ontology#hasRoleConcept
+hi:hasRoleConcept rdf:type owl:ObjectProperty ;
+                  rdfs:domain hi:Agent ;
+                  rdfs:range skos:Concept ;
+                  rdfs:comment "Links a role to a concept in the HINT thesaurus."@en ;
+                  rdfs:label "has role concept" .
+
+
+###  https://w3id.org/hi-ontology#hasTaskConcept
+hi:hasTaskConcept rdf:type owl:ObjectProperty ;
+                  rdfs:domain hi:Task ;
+                  rdfs:range skos:Concept ;
+                  rdfs:comment "Links a task to a concept in the HINT thesaurus."@en ;
+                  rdfs:label "has task concept" .
+
+
+###  https://w3id.org/hi-ontology#hasUseCaseConcept
+hi:hasUseCaseConcept rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:UseCase ;
+                     rdfs:range skos:Concept ;
+                     rdfs:comment "Links a use case to a concept in the HINT thesaurus."@en ;
+                     rdfs:label "has use case concept" .
+
+
+###  https://w3id.org/hi-ontology#identifiesError
+hi:identifiesError rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:AnnotationEvaluation ;
+                   rdfs:range hi:ErrorCategory ;
+                   rdfs:label "identifies error"@en .
+
+
+###  https://w3id.org/hi-ontology#integratedIntoPlatform
+hi:integratedIntoPlatform rdf:type owl:ObjectProperty ;
+                          rdfs:domain hi:RadiotherapyAI ;
+                          rdfs:range hi:DataPlatformContext ;
+                          rdfs:label "integrated into platform"@en .
+
+
+###  https://w3id.org/hi-ontology#interactsWith
+hi:interactsWith rdf:type owl:ObjectProperty ,
+                          owl:SymmetricProperty ;
+                 rdfs:domain hi:Agent ;
+                 rdfs:range hi:Agent ;
+                 owl:propertyChainAxiom ( hi:performsExecution
+                                          hi:hasInteractionEpisode
+                                          hi:hasAgentInvolved
+                                        ) ;
+                 rdfs:comment "Two agents that participate in a shared interaction" ;
+                 rdfs:label "interacts with" .
+
+
+###  https://w3id.org/hi-ontology#interactsWithAGV
+hi:interactsWithAGV rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf hi:interactsWith ;
+                    rdfs:domain hi:HumanAgent ;
+                    rdfs:range hi:AGV ;
+                    rdfs:label "interacts with AGV"@en .
+
+
+###  https://w3id.org/hi-ontology#interactsWithInterface
+hi:interactsWithInterface rdf:type owl:ObjectProperty ;
+                          rdfs:domain hi:Neurologist ;
+                          rdfs:range hi:DiagnosticAI ;
+                          rdfs:label "interacts with interface"@en .
+
+
+###  https://w3id.org/hi-ontology#investigatesRadiotherapy
+hi:investigatesRadiotherapy rdf:type owl:ObjectProperty ;
+                            rdfs:domain hi:PreclinicalStudy ;
+                            rdfs:range skos:Concept ;
+                            rdfs:label "investigates radiotherapy"@en .
+
+
+###  https://w3id.org/hi-ontology#involvesAction
+hi:involvesAction rdf:type owl:ObjectProperty ;
+                  owl:inverseOf hi:performedIn ;
+                  rdfs:domain hi:TaskExecution ;
+                  rdfs:range hi:Action ;
+                  rdfs:label "involves action" .
+
+
+###  https://w3id.org/hi-ontology#isAssignedToTask
+hi:isAssignedToTask rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf hi:isEligibleForTask ;
+                    rdfs:domain hi:Agent ;
+                    rdfs:range hi:Task ;
+                    owl:propertyChainAxiom ( hi:performsExecution
+                                             hi:realizesTask
+                                           ) ;
+                    rdfs:comment "Relates an agent to a task that it is formally assigned to perform. Every assignment implies that the agent is eligible for that task."@en ;
+                    rdfs:label "is assigned to task" .
+
+
+###  https://w3id.org/hi-ontology#isCapabilityOf
+hi:isCapabilityOf rdf:type owl:ObjectProperty ;
+                  rdfs:label "is capability of" .
+
+
+###  https://w3id.org/hi-ontology#isEligibleForTask
+hi:isEligibleForTask rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:Agent ;
+                     rdfs:range hi:Task ;
+                     owl:propertyChainAxiom ( hi:hasCapability
+                                              hi:allowsTask
+                                            ) ;
+                     rdfs:comment "Relates an agent to a task it is eligible to perform, based on their capabilities. Assignment is a stricter, policy-level decision that presupposes eligibility."@en ;
+                     rdfs:label "is eligible for task" .
+
+
+###  https://w3id.org/hi-ontology#isExpertIn
+hi:isExpertIn rdf:type owl:ObjectProperty ;
+              rdfs:domain hi:Agent ;
+              rdfs:range hi:ExpertiseDomain ;
+              rdfs:label "is expert in" .
+
+
+###  https://w3id.org/hi-ontology#isInfluencedBy
+hi:isInfluencedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain hi:HITeam ;
+                  rdfs:range hi:Context ;
+                  rdfs:comment "Related a HI Team to the contextual condition that affects its actions, collaboration dynamics, or task performance."@en ;
+                  rdfs:label "is influenced by" .
+
+
+###  https://w3id.org/hi-ontology#operatesInContext
+hi:operatesInContext rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:Agent ;
+                     rdfs:range hi:Context ;
+                     rdfs:comment "Specifies the context in which an HI team operates."@en ;
+                     rdfs:label "operates in context" .
+
+
+###  https://w3id.org/hi-ontology#participatesInStudy
+hi:participatesInStudy rdf:type owl:ObjectProperty ;
+                       rdfs:domain hi:DemographicCohort ;
+                       rdfs:range hi:UserStudy ;
+                       rdfs:label "participates in study"@en .
+
+
+###  https://w3id.org/hi-ontology#performedBy
+hi:performedBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf hi:performsExecution ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( hi:TaskExecution
+                                         )
+                           ] ;
+               rdfs:range hi:Agent ;
+               rdfs:comment "Execution performed by an agent."@en ;
+               rdfs:label "performed by" .
+
+
+###  https://w3id.org/hi-ontology#performedIn
+hi:performedIn rdf:type owl:ObjectProperty ;
+               rdfs:label "performed in" .
+
+
+###  https://w3id.org/hi-ontology#performsAction
+hi:performsAction rdf:type owl:ObjectProperty ;
+                  rdfs:domain hi:Agent ;
+                  rdfs:range hi:Action ;
+                  rdfs:label "performs action" .
+
+
+###  https://w3id.org/hi-ontology#performsExecution
+hi:performsExecution rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:Agent ;
+                     rdfs:range hi:TaskExecution ;
+                     rdfs:comment "Agent that performs a specific task execution."@en ;
+                     rdfs:label "performs execution" .
+
+
+###  https://w3id.org/hi-ontology#performsWarehouseTask
+hi:performsWarehouseTask rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf hi:executesTask ;
+                         rdfs:domain hi:WarehouseCollaborator ;
+                         rdfs:range hi:LogisticsTask ;
+                         rdfs:label "performs warehouse task"@en .
+
+
+###  https://w3id.org/hi-ontology#predictsOutcomeOf
+hi:predictsOutcomeOf rdf:type owl:ObjectProperty ;
+                     rdfs:domain hi:RadiotherapyAI ;
+                     rdfs:range hi:TreatmentPlanningTask ;
+                     rdfs:label "predicts outcome of"@en .
+
+
+###  https://w3id.org/hi-ontology#producesOutcome
+hi:producesOutcome rdf:type owl:ObjectProperty ;
+                   rdfs:domain hi:Action ;
+                   rdfs:range hi:Outcome ;
+                   rdfs:label "produces outcome" .
+
+
+###  https://w3id.org/hi-ontology#providesBiologicalContext
+hi:providesBiologicalContext rdf:type owl:ObjectProperty ;
+                             rdfs:domain hi:MedicalResearcher ;
+                             rdfs:range hi:RadiotherapyResearchTask ;
+                             rdfs:label "provides biological context"@en .
+
+
+###  https://w3id.org/hi-ontology#providesExplanation
+hi:providesExplanation rdf:type owl:ObjectProperty ;
+                       rdfs:domain hi:DiagnosticAI ;
+                       rdfs:range skos:Concept ;
+                       rdfs:label "provides explanation"@en .
+
+
+###  https://w3id.org/hi-ontology#queriesMedicalDatabase
+hi:queriesMedicalDatabase rdf:type owl:ObjectProperty ;
+                          rdfs:domain hi:MedicalAISystem ;
+                          rdfs:range hi:MedicalKnowledgeSource ;
+                          rdfs:label "queries medical database"@en .
+
+
+###  https://w3id.org/hi-ontology#realizedBy
+hi:realizedBy rdf:type owl:ObjectProperty ;
+              owl:inverseOf hi:realizesTask ;
+              rdfs:domain hi:Task ;
+              rdfs:range hi:TaskExecution ;
+              rdfs:comment "A task is realized through a task execution."@en ;
+              rdfs:label "realized by" .
+
+
+###  https://w3id.org/hi-ontology#realizesTask
+hi:realizesTask rdf:type owl:ObjectProperty ;
+                rdfs:domain hi:TaskExecution ;
+                rdfs:range hi:Task ;
+                rdfs:comment "Task execution realizes a task."@en ;
+                rdfs:label "realizes task" .
+
+
+###  https://w3id.org/hi-ontology#requiresCapability
+hi:requiresCapability rdf:type owl:ObjectProperty ;
+                      rdfs:domain hi:Task ;
+                      rdfs:range hi:Capability ;
+                      rdfs:comment "A task requires certain capabilities to be accomplished."@en ;
+                      rdfs:label "requires cability" .
+
+
+###  https://w3id.org/hi-ontology#requiresImageAnalysis
+hi:requiresImageAnalysis rdf:type owl:ObjectProperty ;
+                         rdfs:domain hi:PreclinicalStudy ;
+                         rdfs:range hi:MedicalImageAnalysisTask ;
+                         rdfs:label "requires image analysis"@en .
+
+
+###  https://w3id.org/hi-ontology#requiresTask
+hi:requiresTask rdf:type owl:ObjectProperty ;
+                rdfs:domain hi:Goal ;
+                rdfs:range hi:Task ;
+                rdfs:comment "A goal requires one or more tasks to be fulfilled."@en ;
+                rdfs:label "has task" .
+
+
+###  https://w3id.org/hi-ontology#storesDataIn
+hi:storesDataIn rdf:type owl:ObjectProperty ;
+                rdfs:domain hi:PreclinicalStudy ;
+                rdfs:range hi:DataPlatformContext ;
+                rdfs:label "stores data in"@en .
+
+
+###  https://w3id.org/hi-ontology#towardsGoal
+hi:towardsGoal rdf:type owl:ObjectProperty ;
+               rdfs:domain hi:TaskExecution ;
+               rdfs:range hi:Goal ;
+               rdfs:comment "Task execution towards a goal."@en ;
+               rdfs:label "towards goal" .
+
+
+###  https://w3id.org/hi-ontology#treatsPatient
+hi:treatsPatient rdf:type owl:ObjectProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain hi:MedicalProfessional ;
+                 rdfs:range hi:Patient ;
+                 rdfs:label "treats patient"@en .
+
+
+###  https://w3id.org/hi-ontology#usesDataset
+hi:usesDataset rdf:type owl:ObjectProperty ;
+               rdfs:domain hi:Evaluation ;
+               rdfs:range hi:Dataset ;
+               rdfs:label "uses dataset" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/hi-ontology#annotatedErrorCount
+hi:annotatedErrorCount rdf:type owl:DatatypeProperty ;
+                       rdfs:domain hi:Evaluation ;
+                       rdfs:range xsd:integer ;
+                       rdfs:label "has annotated error count"@en .
+
+
+###  https://w3id.org/hi-ontology#fMeasureScore
+hi:fMeasureScore rdf:type owl:DatatypeProperty ;
+                 rdfs:domain hi:Evaluation ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:label "has F-measure score"@en .
+
+
+###  https://w3id.org/hi-ontology#hasAlternativeHypothesis
+hi:hasAlternativeHypothesis rdf:type owl:DatatypeProperty ;
+                            rdfs:domain hi:Experiment ;
+                            rdfs:range xsd:string ;
+                            rdfs:comment "Stores the textual formulation of the alternative hypothesis of an experiment."@en ;
+                            rdfs:label "has alternative hypothesis"@en .
+
+
+###  https://w3id.org/hi-ontology#hasAutonomyDegree
+hi:hasAutonomyDegree rdf:type owl:DatatypeProperty ,
+                              owl:FunctionalProperty ;
+                     rdfs:domain hi:Agent ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "has autonomy degree" .
+
+
+###  https://w3id.org/hi-ontology#hasExperienceLevel
+hi:hasExperienceLevel rdf:type owl:DatatypeProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain hi:HumanAgent ;
+                      rdfs:range xsd:string ;
+                      rdfs:label "has experience level" .
+
+
+###  https://w3id.org/hi-ontology#hasNullHypothesis
+hi:hasNullHypothesis rdf:type owl:DatatypeProperty ;
+                     rdfs:domain hi:Experiment ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Stores the textual formulation of the null hypothesis of an experiment."@en ;
+                     rdfs:label "has null hypothesis"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://caressesrobot.org/ontology#MedicalStaff
+caresses:MedicalStaff rdf:type owl:Class .
+
+
+###  http://purl.oclc.org/NET/ssnx/ssn#Device
+ssn:Device rdf:type owl:Class .
+
+
+###  http://purl.oclc.org/NET/ssnx/ssn#Output
+ssn:Output rdf:type owl:Class .
+
+
+###  http://purl.oclc.org/NET/ssnx/ssn#Process
+ssn:Process rdf:type owl:Class .
+
+
+###  http://schema.org/Organization
+schema:Organization rdf:type owl:Class ;
+                    rdfs:comment "A Schema.org class representing an organization such as an institution, company, or group."@en ;
+                    rdfs:label "Organization"@en .
+
+
+###  http://schema.org/PropertyValue
+schema:PropertyValue rdf:type owl:Class ;
+                     rdfs:comment "A Schema.org class representing a specific property-value pair, often used for metadata or structured descriptions."@en ;
+                     rdfs:label "Property Value"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class ;
+             rdfs:comment "A SKOS concept representing a unit of thought, used for controlled vocabularies and thesauri."@en ;
+             rdfs:label "Concept"@en .
+
+
+###  http://www.w3.org/ns/prov#Activity
+prov:Activity rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Agent
+prov:Agent rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Entity
+prov:Entity rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:comment "A human individual described using the FOAF vocabulary. Represents natural persons who may participate in, interact with, or be modeled within a Hybrid Intelligence scenario."@en ;
+            rdfs:label "Person"@en .
+
+
+###  https://w3id.org/hi-ontology#AGV
+hi:AGV rdf:type owl:Class ;
+       rdfs:subClassOf ssn:Device ,
+                       hi:ArtificialAgent ;
+       rdfs:label "Automated Guided Vehicle (AGV)"@en .
+
+
+###  https://w3id.org/hi-ontology#AICapability
+hi:AICapability rdf:type owl:Class ;
+                rdfs:subClassOf hi:Capability ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty hi:isCapabilityOf ;
+                                  owl:someValuesFrom hi:ArtificialAgent
+                                ] ;
+                rdfs:label "AI Capability" .
+
+
+###  https://w3id.org/hi-ontology#Action
+hi:Action rdf:type owl:Class ;
+          rdfs:label "Action" ;
+          skos:closeMatch wd:Q4026292 .
+
+
+###  https://w3id.org/hi-ontology#Agent
+hi:Agent rdf:type owl:Class ;
+         rdfs:subClassOf prov:Agent ;
+         owl:disjointUnionOf ( hi:ArtificialAgent
+                               hi:HumanAgent
+                             ) ;
+         rdfs:comment "An autonomous entity capable of having roles, goals, and capabilities within a hybrid intelligence system."@en ;
+         rdfs:label "Agent"@en .
+
+
+###  https://w3id.org/hi-ontology#AgentLimitation
+hi:AgentLimitation rdf:type owl:Class ;
+                   rdfs:label "Agent Limitation" .
+
+
+###  https://w3id.org/hi-ontology#AnnotationEvaluation
+hi:AnnotationEvaluation rdf:type owl:Class ;
+                        rdfs:subClassOf hi:Evaluation ;
+                        rdfs:label "Annotation Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#ArtificialAgent
+hi:ArtificialAgent rdf:type owl:Class ;
+                   rdfs:subClassOf hi:Agent ,
+                                   hcio:Interactive_Computer_System ;
+                   owl:disjointWith hi:HumanAgent ;
+                   rdfs:comment "An artificial or computational agent (robot, software, etc.) collaborating with human agents."@en ;
+                   rdfs:label "Artificial Agent"@en .
+
+
+###  https://w3id.org/hi-ontology#AssistiveRobot
+hi:AssistiveRobot rdf:type owl:Class ;
+                  rdfs:subClassOf hi:ArtificialAgent ;
+                  rdfs:label "Assistive Robot"@en .
+
+
+###  https://w3id.org/hi-ontology#Authenticity
+hi:Authenticity rdf:type owl:Class ;
+                rdfs:subClassOf hi:EthicalConsideration ;
+                rdfs:label "Authenticity" .
+
+
+###  https://w3id.org/hi-ontology#Author
+hi:Author rdf:type owl:Class ;
+          rdfs:subClassOf hi:HumanAgent .
+
+
+###  https://w3id.org/hi-ontology#Authorship
+hi:Authorship rdf:type owl:Class ;
+              rdfs:subClassOf hi:EthicalConsideration ;
+              rdfs:label "Authorship" .
+
+
+###  https://w3id.org/hi-ontology#AutoethnographicStudy
+hi:AutoethnographicStudy rdf:type owl:Class ;
+                         rdfs:subClassOf hi:Experiment ;
+                         rdfs:label "Autoetnographic Study" .
+
+
+###  https://w3id.org/hi-ontology#BabyBoomer
+hi:BabyBoomer rdf:type owl:Class ;
+              rdfs:subClassOf hi:GenerationalCohort ;
+              rdfs:label "Baby Boomer"@en .
+
+
+###  https://w3id.org/hi-ontology#Bias
+hi:Bias rdf:type owl:Class ;
+        rdfs:subClassOf hi:AgentLimitation ;
+        rdfs:label "Bias" ;
+        skos:closeMatch wd:Q742736 .
+
+
+###  https://w3id.org/hi-ontology#Capability
+hi:Capability rdf:type owl:Class ;
+              rdfs:comment "A skill, competence, or functional capacity that allows an agent to perform or enable a task."@en ;
+              rdfs:label "Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Child
+hi:Child rdf:type owl:Class ;
+         rdfs:subClassOf hi:HumanAgent ;
+         rdfs:label "Child"@en .
+
+
+###  https://w3id.org/hi-ontology#ClinicalAgent
+hi:ClinicalAgent rdf:type owl:Class ;
+                 rdfs:subClassOf caresses:MedicalStaff ,
+                                 hi:HumanAgent ;
+                 rdfs:label "Clinical Agent"@en .
+
+
+###  https://w3id.org/hi-ontology#ClinicalEnvironment
+hi:ClinicalEnvironment rdf:type owl:Class ;
+                       rdfs:subClassOf hi:Context ;
+                       rdfs:label "Clinical Environment"@en .
+
+
+###  https://w3id.org/hi-ontology#ClinicalTranslationGoal
+hi:ClinicalTranslationGoal rdf:type owl:Class ;
+                           rdfs:subClassOf hi:Goal ;
+                           rdfs:label "Clinical Translation Goal"@en .
+
+
+###  https://w3id.org/hi-ontology#CollaborationTask
+hi:CollaborationTask rdf:type owl:Class ;
+                     rdfs:subClassOf hi:Task ;
+                     rdfs:label "Collaboration Task" .
+
+
+###  https://w3id.org/hi-ontology#Context
+hi:Context rdf:type owl:Class ;
+           rdfs:comment "Situational conditions (environmental, cultural, cognitive) under which tasks and evaluations occur."@en ;
+           rdfs:label "Context"@en .
+
+
+###  https://w3id.org/hi-ontology#DataPlatformContext
+hi:DataPlatformContext rdf:type owl:Class ;
+                       rdfs:subClassOf hi:Context ;
+                       rdfs:label "Data Platform Context"@en .
+
+
+###  https://w3id.org/hi-ontology#Dataset
+hi:Dataset rdf:type owl:Class ;
+           rdfs:subClassOf prov:Entity ;
+           rdfs:label "Dataset" .
+
+
+###  https://w3id.org/hi-ontology#Decision
+hi:Decision rdf:type owl:Class ;
+            rdfs:subClassOf hi:Action ;
+            rdfs:label "Decision" ;
+            skos:closeMatch wd:Q16513426 .
+
+
+###  https://w3id.org/hi-ontology#DemographicCohort
+hi:DemographicCohort rdf:type owl:Class ;
+                     rdfs:subClassOf hi:Context ;
+                     rdfs:label "Demographic Cohort"@en .
+
+
+###  https://w3id.org/hi-ontology#DiagnosisTask
+hi:DiagnosisTask rdf:type owl:Class ;
+                 rdfs:subClassOf hi:Task .
+
+
+###  https://w3id.org/hi-ontology#DiagnosticAI
+hi:DiagnosticAI rdf:type owl:Class ;
+                rdfs:subClassOf hi:ArtificialAgent ;
+                rdfs:label "Diagnostic AI"@en .
+
+
+###  https://w3id.org/hi-ontology#Emotion
+hi:Emotion rdf:type owl:Class ;
+           rdfs:label "Emotion" ;
+           rdfs:seeAlso caresses:PhysicalAndMentalCondition .
+
+
+###  https://w3id.org/hi-ontology#ErrorCategory
+hi:ErrorCategory rdf:type owl:Class ;
+                 rdfs:subClassOf skos:Concept ;
+                 rdfs:label "Error Category"@en .
+
+
+###  https://w3id.org/hi-ontology#EthicalConsideration
+hi:EthicalConsideration rdf:type owl:Class ;
+                        owl:disjointWith hi:Risk ;
+                        rdfs:label "Ethical Consideration" .
+
+
+###  https://w3id.org/hi-ontology#Evaluation
+hi:Evaluation rdf:type owl:Class ;
+              rdfs:comment "A process of assessing the quality or outcome of executions, methods, or goals."@en ;
+              rdfs:label "Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#Experiment
+hi:Experiment rdf:type owl:Class ;
+              rdfs:comment "An empirical setup linked to an evaluation that tests metrics and hypotheses."@en ;
+              rdfs:label "Experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#ExpertiseDomain
+hi:ExpertiseDomain rdf:type owl:Class ;
+                   rdfs:label "Expertise Domain" .
+
+
+###  https://w3id.org/hi-ontology#Explanation
+hi:Explanation rdf:type owl:Class ;
+               rdfs:subClassOf hi:Action ;
+               rdfs:label "Explanation" ;
+               skos:closeMatch wd:Q7958 .
+
+
+###  https://w3id.org/hi-ontology#FactChecker
+hi:FactChecker rdf:type owl:Class ;
+               rdfs:subClassOf hi:HumanAgent ;
+               rdfs:label "Fact Checker" .
+
+
+###  https://w3id.org/hi-ontology#FeedbackLoop
+hi:FeedbackLoop rdf:type owl:Class ;
+                rdfs:subClassOf hi:Action ;
+                rdfs:label "Feedback Loop" ;
+                skos:closeMatch wd:Q183635 .
+
+
+###  https://w3id.org/hi-ontology#GenerationX
+hi:GenerationX rdf:type owl:Class ;
+               rdfs:subClassOf hi:GenerationalCohort ;
+               rdfs:label "Generation X"@en .
+
+
+###  https://w3id.org/hi-ontology#GenerationY
+hi:GenerationY rdf:type owl:Class ;
+               rdfs:subClassOf hi:GenerationalCohort ;
+               rdfs:label "Generation Y"@en .
+
+
+###  https://w3id.org/hi-ontology#GenerationZ
+hi:GenerationZ rdf:type owl:Class ;
+               rdfs:subClassOf hi:GenerationalCohort ;
+               rdfs:label "Generation Z"@en .
+
+
+###  https://w3id.org/hi-ontology#GenerationalCohort
+hi:GenerationalCohort rdf:type owl:Class ;
+                      rdfs:subClassOf hi:DemographicCohort ;
+                      rdfs:label "Generational Cohort"@en .
+
+
+###  https://w3id.org/hi-ontology#Goal
+hi:Goal rdf:type owl:Class ;
+        rdfs:subClassOf hcio:User_Goal ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty hi:requiresTask ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass hi:Task
+                        ] ;
+        rdfs:comment "A desired outcome pursued by an HI team, requiring one or more tasks to be completed."@en ;
+        rdfs:label "Goal"@en .
+
+
+###  https://w3id.org/hi-ontology#HCIExpert
+hi:HCIExpert rdf:type owl:Class ;
+             rdfs:subClassOf hi:HumanAgent ;
+             rdfs:label "HCI Expert"@en .
+
+
+###  https://w3id.org/hi-ontology#HITeam
+hi:HITeam rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty hi:hasMember ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass hi:ArtificialAgent
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hi:hasMember ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass hi:HumanAgent
+                          ] ;
+          rdfs:comment "A hybrid intelligence team composed of human and artificial agents pursuing a shared goal."@en ;
+          rdfs:label "HI Team"@en .
+
+
+###  https://w3id.org/hi-ontology#HumanAgent
+hi:HumanAgent rdf:type owl:Class ;
+              rdfs:subClassOf foaf:Person ,
+                              hi:Agent ,
+                              hcio:User ;
+              rdfs:comment "A human participant in the hybrid intelligence system, possessing cognitive and perceptual abilities."@en ;
+              rdfs:label "Human Agent"@en ;
+              rdfs:seeAlso caresses:Person .
+
+
+###  https://w3id.org/hi-ontology#HumanAnnotator
+hi:HumanAnnotator rdf:type owl:Class ;
+                  rdfs:subClassOf hi:HumanAgent ;
+                  rdfs:label "Human Annotator"@en .
+
+
+###  https://w3id.org/hi-ontology#HumanCapability
+hi:HumanCapability rdf:type owl:Class ;
+                   rdfs:subClassOf hi:Capability ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty hi:isCapabilityOf ;
+                                     owl:someValuesFrom hi:HumanAgent
+                                   ] ;
+                   rdfs:label "Human Capability" .
+
+
+###  https://w3id.org/hi-ontology#HumanHumanInteraction
+hi:HumanHumanInteraction rdf:type owl:Class ;
+                         rdfs:subClassOf hi:Interaction ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty hi:hasAgentInvolved ;
+                                           owl:allValuesFrom hi:HumanAgent
+                                         ] ;
+                         rdfs:label "Human-Human Interaction" .
+
+
+###  https://w3id.org/hi-ontology#HybridInteraction
+hi:HybridInteraction rdf:type owl:Class ;
+                     rdfs:subClassOf hi:Interaction ,
+                                     hcio:Human-Computer_Interaction ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty hi:hasAgentInvolved ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass hi:ArtificialAgent
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty hi:hasAgentInvolved ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass hi:HumanAgent
+                                     ] ;
+                     rdfs:label "Hybrid Interaction" .
+
+
+###  https://w3id.org/hi-ontology#InVitroExperiment
+hi:InVitroExperiment rdf:type owl:Class ;
+                     rdfs:subClassOf hi:PreclinicalStudy ;
+                     owl:disjointWith hi:InVivoExperiment ;
+                     rdfs:label "In Vitro Experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#InVivoExperiment
+hi:InVivoExperiment rdf:type owl:Class ;
+                    rdfs:subClassOf hi:PreclinicalStudy ;
+                    rdfs:label "In Vivo Experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#InformationCategorizationTask
+hi:InformationCategorizationTask rdf:type owl:Class ;
+                                 rdfs:subClassOf hi:Task ;
+                                 rdfs:label "Information Categorization Task"@en .
+
+
+###  https://w3id.org/hi-ontology#Interaction
+hi:Interaction rdf:type owl:Class ;
+               rdfs:subClassOf prov:Activity ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty hi:hasAgentInvolved ;
+                                 owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                 owl:onClass hi:Agent
+                               ] ;
+               rdfs:comment "A multi-agent task execution where two or more agents coordinate (verbal, symbolic, or physical) toward a goal."@en ;
+               rdfs:label "Interaction"@en .
+
+
+###  https://w3id.org/hi-ontology#Knowledge
+hi:Knowledge rdf:type owl:Class ;
+             rdfs:label "Knowledge" .
+
+
+###  https://w3id.org/hi-ontology#KnowledgeGap
+hi:KnowledgeGap rdf:type owl:Class ;
+                rdfs:subClassOf hi:AgentLimitation ;
+                rdfs:label "Knowledge Gap" .
+
+
+###  https://w3id.org/hi-ontology#LLMAgent
+hi:LLMAgent rdf:type owl:Class ;
+            rdfs:subClassOf hi:ArtificialAgent ;
+            rdfs:label "Large Language Model Agent"@en ;
+            skos:closeMatch wd:Q115305900 .
+
+
+###  https://w3id.org/hi-ontology#Law
+hi:Law rdf:type owl:Class ;
+       rdfs:subClassOf hi:ExpertiseDomain ;
+       skos:exactMatch wd:Q7748 .
+
+
+###  https://w3id.org/hi-ontology#LearningObjective
+hi:LearningObjective rdf:type owl:Class ;
+                     rdfs:label "Learning Objective" .
+
+
+###  https://w3id.org/hi-ontology#LegalAdvisor
+hi:LegalAdvisor rdf:type owl:Class ;
+                rdfs:subClassOf hi:HumanAgent ;
+                rdfs:label "Legal Advisor" .
+
+
+###  https://w3id.org/hi-ontology#LogisticsTask
+hi:LogisticsTask rdf:type owl:Class ;
+                 rdfs:subClassOf hi:Task ;
+                 rdfs:label "Logistics Task"@en .
+
+
+###  https://w3id.org/hi-ontology#MedicalAISystem
+hi:MedicalAISystem rdf:type owl:Class ;
+                   rdfs:subClassOf hi:ArtificialAgent ;
+                   rdfs:label "Medical AI System" .
+
+
+###  https://w3id.org/hi-ontology#MedicalImageAnalysisTask
+hi:MedicalImageAnalysisTask rdf:type owl:Class ;
+                            rdfs:subClassOf hi:RadiotherapyResearchTask ;
+                            rdfs:label "Medical Image Analysis Task"@en .
+
+
+###  https://w3id.org/hi-ontology#MedicalKnowledgeSource
+hi:MedicalKnowledgeSource rdf:type owl:Class ;
+                          rdfs:subClassOf hi:Context ;
+                          rdfs:label "Medical Knowledge Source" .
+
+
+###  https://w3id.org/hi-ontology#MedicalProfessional
+hi:MedicalProfessional rdf:type owl:Class ;
+                       rdfs:subClassOf hi:ClinicalAgent ;
+                       rdfs:label "Medical Professional" .
+
+
+###  https://w3id.org/hi-ontology#MedicalResearcher
+hi:MedicalResearcher rdf:type owl:Class ;
+                     rdfs:subClassOf hi:ClinicalAgent ;
+                     rdfs:label "Medical Researcher"@en .
+
+
+###  https://w3id.org/hi-ontology#MemoryCategory
+hi:MemoryCategory rdf:type owl:Class ;
+                  rdfs:subClassOf skos:Concept ;
+                  rdfs:label "Memory Category"@en .
+
+
+###  https://w3id.org/hi-ontology#NavigationTask
+hi:NavigationTask rdf:type owl:Class ;
+                  rdfs:subClassOf hi:LogisticsTask ;
+                  rdfs:label "Navigation Task"@en .
+
+
+###  https://w3id.org/hi-ontology#Neurologist
+hi:Neurologist rdf:type owl:Class ;
+               rdfs:subClassOf hi:ClinicalAgent ;
+               rdfs:label "Neurologist"@en .
+
+
+###  https://w3id.org/hi-ontology#Outcome
+hi:Outcome rdf:type owl:Class ;
+           rdfs:subClassOf ssn:Output ,
+                           prov:Entity ;
+           rdfs:label "Outcome" .
+
+
+###  https://w3id.org/hi-ontology#Oversight
+hi:Oversight rdf:type owl:Class ;
+             rdfs:subClassOf hi:Action ;
+             rdfs:label "Oversight" .
+
+
+###  https://w3id.org/hi-ontology#Patient
+hi:Patient rdf:type owl:Class ;
+           rdfs:subClassOf hi:HumanAgent .
+
+
+###  https://w3id.org/hi-ontology#PickAndPlaceTask
+hi:PickAndPlaceTask rdf:type owl:Class ;
+                    rdfs:subClassOf hi:LogisticsTask ;
+                    rdfs:label "Pick and Place Task"@en .
+
+
+###  https://w3id.org/hi-ontology#PreclinicalStudy
+hi:PreclinicalStudy rdf:type owl:Class ;
+                    rdfs:subClassOf hi:Experiment ;
+                    rdfs:label "Preclinical Study"@en .
+
+
+###  https://w3id.org/hi-ontology#Prediction
+hi:Prediction rdf:type owl:Class ;
+              rdfs:subClassOf hi:Action ;
+              rdfs:label "Prediction" ;
+              skos:closeMatch wd:Q748250 .
+
+
+###  https://w3id.org/hi-ontology#PrerequisiteKnowledge
+hi:PrerequisiteKnowledge rdf:type owl:Class ;
+                         rdfs:subClassOf hi:Capability ,
+                                         hi:Knowledge ;
+                         rdfs:label "Prerequisite Knowledge" .
+
+
+###  https://w3id.org/hi-ontology#Privacy
+hi:Privacy rdf:type owl:Class ;
+           rdfs:subClassOf hi:EthicalConsideration .
+
+
+###  https://w3id.org/hi-ontology#RadiotherapyAI
+hi:RadiotherapyAI rdf:type owl:Class ;
+                  rdfs:subClassOf hi:ArtificialAgent ;
+                  rdfs:label "Radiotherapy AI"@en .
+
+
+###  https://w3id.org/hi-ontology#RadiotherapyResearchTask
+hi:RadiotherapyResearchTask rdf:type owl:Class ;
+                            rdfs:subClassOf hi:Task ;
+                            rdfs:label "Radiotherapy Research Task"@en .
+
+
+###  https://w3id.org/hi-ontology#Recommendation
+hi:Recommendation rdf:type owl:Class ;
+                  rdfs:subClassOf hi:Action ;
+                  rdfs:label "Recommendation" ;
+                  skos:closeMatch wd:Q17637604 .
+
+
+###  https://w3id.org/hi-ontology#Risk
+hi:Risk rdf:type owl:Class ;
+        rdfs:label "Risk" .
+
+
+###  https://w3id.org/hi-ontology#SocietalImpact
+hi:SocietalImpact rdf:type owl:Class ;
+                  rdfs:subClassOf hi:EthicalConsideration ;
+                  rdfs:label "Societal Impact" .
+
+
+###  https://w3id.org/hi-ontology#TacitKnowledge
+hi:TacitKnowledge rdf:type owl:Class ;
+                  rdfs:subClassOf hi:Knowledge ;
+                  rdfs:label "Tacit Knowledge" .
+
+
+###  https://w3id.org/hi-ontology#Task
+hi:Task rdf:type owl:Class ;
+        rdfs:subClassOf ssn:Process ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty hi:requiresCapability ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass hi:Capability
+                        ] ;
+        rdfs:comment "A unit of purposeful activity executed by an agent toward achieving a goal."@en ;
+        rdfs:label "Task"@en .
+
+
+###  https://w3id.org/hi-ontology#TaskExecution
+hi:TaskExecution rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Activity ;
+                 rdfs:comment "The realization or performance of a specific task by an agent using a method."@en ;
+                 rdfs:label "Task Execution"@en .
+
+
+###  https://w3id.org/hi-ontology#TreatmentPlanningTask
+hi:TreatmentPlanningTask rdf:type owl:Class ;
+                         rdfs:subClassOf hi:RadiotherapyResearchTask ;
+                         rdfs:label "Treatment Planning Task"@en .
+
+
+###  https://w3id.org/hi-ontology#TrustEvaluation
+hi:TrustEvaluation rdf:type owl:Class ;
+                   rdfs:subClassOf hi:Evaluation ;
+                   rdfs:label "Trust Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#UsabilityStudy
+hi:UsabilityStudy rdf:type owl:Class ;
+                  rdfs:subClassOf hi:Experiment ;
+                  rdfs:label "Usability Study"@en .
+
+
+###  https://w3id.org/hi-ontology#UseCase
+hi:UseCase rdf:type owl:Class ;
+           rdfs:comment "A structured situation describing a specific hybrid intelligence scenario (previously 'Scenario')."@en ;
+           rdfs:label "Use Case"@en .
+
+
+###  https://w3id.org/hi-ontology#UserStudy
+hi:UserStudy rdf:type owl:Class ;
+             rdfs:subClassOf hi:Experiment ;
+             rdfs:label "User Study"@en .
+
+
+###  https://w3id.org/hi-ontology#WarehouseCollaborator
+hi:WarehouseCollaborator rdf:type owl:Class ;
+                         owl:equivalentClass [ rdf:type owl:Class ;
+                                               owl:unionOf ( hi:AGV
+                                                             hi:WarehouseWorker
+                                                           )
+                                             ] ;
+                         rdfs:label "Warehouse Collaborator"@en .
+
+
+###  https://w3id.org/hi-ontology#WarehouseEnvironment
+hi:WarehouseEnvironment rdf:type owl:Class ;
+                        rdfs:subClassOf hi:Context ;
+                        rdfs:label "Warehouse Environment"@en .
+
+
+###  https://w3id.org/hi-ontology#WarehouseWorker
+hi:WarehouseWorker rdf:type owl:Class ;
+                   rdfs:subClassOf hi:HumanAgent ;
+                   rdfs:label "Warehouse Worker"@en .
+
+
+###  https://w3id.org/hi-ontology#WorkloadEvaluation
+hi:WorkloadEvaluation rdf:type owl:Class ;
+                      rdfs:subClassOf hi:Evaluation ;
+                      rdfs:label "Workload Evaluation"@en .
+
+
+###  urn:absolute:dev.nemo.inf.ufes.br/hcion/HCIO.owl#Human-Computer_Interaction
+hcio:Human-Computer_Interaction rdf:type owl:Class .
+
+
+###  urn:absolute:dev.nemo.inf.ufes.br/hcion/HCIO.owl#Interactive_Computer_System
+hcio:Interactive_Computer_System rdf:type owl:Class .
+
+
+###  urn:absolute:dev.nemo.inf.ufes.br/hcion/HCIO.owl#User
+hcio:User rdf:type owl:Class .
+
+
+###  urn:absolute:dev.nemo.inf.ufes.br/hcion/HCIO.owl#User_Goal
+hcio:User_Goal rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://w3id.org/hi-ontology#AGV_Demo_Unit
+hi:AGV_Demo_Unit rdf:type owl:NamedIndividual ,
+                          hi:AGV ;
+                 hi:conductedInEnvironment hi:MixedFleetWarehouse ;
+                 hi:performsWarehouseTask hi:Task_PickAndPlace ;
+                 rdfs:label "Demo AGV Unit"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_ColonyCounter
+hi:AI_ColonyCounter rdf:type owl:NamedIndividual ,
+                             hi:RadiotherapyAI ;
+                    hi:analyzesMedicalImage hi:Task_CountCellColonies ;
+                    hi:hasAgentConcept hint:ArtificialAgent ;
+                    hi:integratedIntoPlatform hi:HPC_DataPlatform ;
+                    rdfs:label "Deep Learning Colony Counter"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_DiagnosticAssistant
+hi:AI_DiagnosticAssistant rdf:type owl:NamedIndividual ,
+                                   hi:MedicalAISystem ;
+                          hi:hasAgentConcept hint:ArtificialAgent ;
+                          hi:hasRoleConcept hint:AIAssistantRole ;
+                          hi:queriesMedicalDatabase hi:MedicalJournals ,
+                                                    hi:PreviousTests ;
+                          rdfs:label "Clinical Search and Analysis AI"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_GenerativeSuperResolution
+hi:AI_GenerativeSuperResolution rdf:type owl:NamedIndividual ,
+                                         hi:RadiotherapyAI ;
+                                hi:analyzesMedicalImage hi:Task_GenerateSuperResolution ;
+                                hi:hasAgentConcept hint:ArtificialAgent ;
+                                hi:integratedIntoPlatform hi:HPC_DataPlatform ;
+                                rdfs:label "AI for Super-Resolution"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_TreatmentPlanner
+hi:AI_TreatmentPlanner rdf:type owl:NamedIndividual ,
+                                hi:RadiotherapyAI ;
+                       hi:integratedIntoPlatform hi:HPC_DataPlatform ;
+                       hi:predictsOutcomeOf hi:Task_OptimizeTreatmentPlan ;
+                       rdfs:label "Treatment Planner"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_TumorSegmenter
+hi:AI_TumorSegmenter rdf:type owl:NamedIndividual ,
+                              hi:RadiotherapyAI ;
+                     hi:analyzesMedicalImage hi:Task_SegmentTumorUltrasound ;
+                     hi:hasAgentConcept hint:ArtificialAgent ;
+                     hi:integratedIntoPlatform hi:HPC_DataPlatform ;
+                     rdfs:label "Deep Learning Tumor Segmenter"@en .
+
+
+###  https://w3id.org/hi-ontology#AI_assistance_use
+hi:AI_assistance_use rdf:type owl:NamedIndividual ,
+                              hi:Context ;
+                     rdfs:label "Use of AI" .
+
+
+###  https://w3id.org/hi-ontology#AI_driven_virtual_agent
+hi:AI_driven_virtual_agent rdf:type owl:NamedIndividual ,
+                                    hi:ArtificialAgent ;
+                           hi:hasCapability hi:data_mining ,
+                                            hi:pattern_recognition ;
+                           hi:operatesInContext hi:academic_research_context ;
+                           hi:performsExecution hi:analyse_AI_findings ;
+                           rdfs:label "AI-driven virtual agent" .
+
+
+###  https://w3id.org/hi-ontology#Action_AdaptPlan
+hi:Action_AdaptPlan rdf:type owl:NamedIndividual ,
+                             hi:Recommendation ;
+                    hi:doneBy hi:AssistiveRobot_1 ;
+                    hi:producesOutcome hi:AdaptedReadingPlan ;
+                    rdfs:label "Robot recommends reading adaptation" .
+
+
+###  https://w3id.org/hi-ontology#Action_GenerateReport
+hi:Action_GenerateReport rdf:type owl:NamedIndividual ,
+                                  hi:Action ;
+                         hi:doneBy hi:AssistiveRobot_1 ;
+                         hi:producesOutcome hi:Alex_ProgressReport ;
+                         rdfs:label "Generate and store progress report" .
+
+
+###  https://w3id.org/hi-ontology#Action_TeacherFeedback
+hi:Action_TeacherFeedback rdf:type owl:NamedIndividual ,
+                                   hi:FeedbackLoop ;
+                          hi:doneBy hi:RemedialTeacher_1 ;
+                          hi:feedsinto hi:AssistiveRobot_1 ;
+                          hi:producesOutcome hi:AdaptedReadingPlan ;
+                          rdfs:label "Teacher feedback feeds into robot adaptation" .
+
+
+###  https://w3id.org/hi-ontology#AdaptedReadingPlan
+hi:AdaptedReadingPlan rdf:type owl:NamedIndividual ,
+                               hi:Outcome ;
+                      rdfs:label "Adapted reading plan for Alex" .
+
+
+###  https://w3id.org/hi-ontology#Alex
+hi:Alex rdf:type owl:NamedIndividual ,
+                 hi:Child ;
+        hi:belongsToCohort hi:Cohort_GenZ ;
+        hi:experiencesEmotion hi:Motivation ;
+        hi:operatesInContext hi:CollaborativeReadingContext ;
+        hi:hasExperienceLevel "early reader with dyslexia" ;
+        rdfs:label "Alex" .
+
+
+###  https://w3id.org/hi-ontology#Alex_ProgressReport
+hi:Alex_ProgressReport rdf:type owl:NamedIndividual ,
+                                hi:Outcome ;
+                       rdfs:label "Alex session progress report" .
+
+
+###  https://w3id.org/hi-ontology#Algorithmic_literacy
+hi:Algorithmic_literacy rdf:type owl:NamedIndividual ,
+                                 hi:PrerequisiteKnowledge ;
+                        rdfs:label "Algorithmic literacy" .
+
+
+###  https://w3id.org/hi-ontology#Annotation
+hi:Annotation rdf:type owl:NamedIndividual ,
+                       hi:AnnotationEvaluation ;
+              hi:annotatedBy hi:Annotator_1 ,
+                             hi:Annotator_2 ,
+                             hi:Annotator_3 ,
+                             hi:Annotator_4 ;
+              hi:identifiesError hi:Error_CategoryBoundaries ,
+                                 hi:Error_ImpliedInformation ,
+                                 hi:Error_Importance ;
+              hi:annotatedErrorCount 33 ;
+              hi:fMeasureScore 0.38 ;
+              rdfs:label "Annotation of Experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#Annotator_1
+hi:Annotator_1 rdf:type owl:NamedIndividual ,
+                        hi:HumanAnnotator ;
+               hi:operatesInContext hi:MementosComicStrip ;
+               hi:performsExecution hi:Exec_CategorizeMemories ;
+               rdfs:label "Human Annotator 1"@en .
+
+
+###  https://w3id.org/hi-ontology#Annotator_2
+hi:Annotator_2 rdf:type owl:NamedIndividual ,
+                        hi:HumanAnnotator ;
+               hi:operatesInContext hi:MementosComicStrip ;
+               hi:performsExecution hi:Exec_CategorizeMemories ;
+               rdfs:label "Human Annotator 2"@en .
+
+
+###  https://w3id.org/hi-ontology#Annotator_3
+hi:Annotator_3 rdf:type owl:NamedIndividual ,
+                        hi:HumanAnnotator ;
+               hi:operatesInContext hi:MementosComicStrip ;
+               hi:performsExecution hi:Exec_CategorizeMemories ;
+               rdfs:label "Human Annotator 3"@en .
+
+
+###  https://w3id.org/hi-ontology#Annotator_4
+hi:Annotator_4 rdf:type owl:NamedIndividual ,
+                        hi:HumanAnnotator ;
+               hi:operatesInContext hi:MementosComicStrip ;
+               hi:performsExecution hi:Exec_CategorizeMemories ;
+               rdfs:label "Human Annotator 4"@en .
+
+
+###  https://w3id.org/hi-ontology#AssistiveRobot_1
+hi:AssistiveRobot_1 rdf:type owl:NamedIndividual ,
+                             hi:AssistiveRobot ;
+                    hi:hasAgentLimitation hi:lack_situational_awareness ;
+                    hi:hasCapability hi:Cap_AffectDetection ,
+                                     hi:Cap_PersonalisedRecommendation ,
+                                     hi:Cap_ProgressTracking ;
+                    hi:operatesInContext hi:CollaborativeReadingContext ;
+                    hi:hasAutonomyDegree "supervised — adapts based on teacher and child input" ;
+                    rdfs:label "Assistive Reading Robot" .
+
+
+###  https://w3id.org/hi-ontology#AutomationBiasRisk
+hi:AutomationBiasRisk rdf:type owl:NamedIndividual ,
+                               hi:Risk ;
+                      hi:affectsAgent hi:Neurologist_Res1 ;
+                      hi:emergesFrom hi:BrainAgePredictionUseCase ;
+                      rdfs:comment "Risk of over-trusting AI systems and becoming over dependant on them" ;
+                      rdfs:label "Automation bias risk" .
+
+
+###  https://w3id.org/hi-ontology#Basic_Question_Generation
+hi:Basic_Question_Generation rdf:type owl:NamedIndividual ,
+                                      hi:TaskExecution ;
+                             hi:performedBy hi:novice_fact_checker ;
+                             hi:realizesTask hi:question_generation ;
+                             rdfs:label "Basic question generation" .
+
+
+###  https://w3id.org/hi-ontology#BrainAgePredictionUseCase
+hi:BrainAgePredictionUseCase rdf:type owl:NamedIndividual ,
+                                      hi:UseCase ;
+                             hi:hasEthicalConsideration hi:PatientDataPrivacy ;
+                             hi:hasHITeam hi:BrainAge_HI_Team ;
+                             rdfs:label "Brain Age prediction use case" .
+
+
+###  https://w3id.org/hi-ontology#BrainAgePredictor
+hi:BrainAgePredictor rdf:type owl:NamedIndividual ,
+                              hi:DiagnosticAI ;
+                     hi:hasAgentConcept hint:ArtificialAgent ;
+                     hi:providesExplanation hi:XAI_GlassBrain ,
+                                            hi:XAI_TornadoPlot ;
+                     rdfs:label "Brain Age Predictor"@en .
+
+
+###  https://w3id.org/hi-ontology#BrainAge_HI_Team
+hi:BrainAge_HI_Team rdf:type owl:NamedIndividual ,
+                             hi:HITeam ;
+                    hi:hasMember hi:BrainAgePredictor ,
+                                 hi:Neurologist_Res1 ,
+                                 hi:Neurologist_Res2 ,
+                                 hi:Neurologist_Res3 ,
+                                 hi:Neurologist_Res4 ,
+                                 hi:Neurologist_Res5 ;
+                    rdfs:label "Brain age prediction HI team"@en .
+
+
+###  https://w3id.org/hi-ontology#BrainAge_Usability
+hi:BrainAge_Usability rdf:type owl:NamedIndividual ,
+                               hi:UsabilityStudy ;
+                      rdfs:label "Usability Study"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_AffectDetection
+hi:Cap_AffectDetection rdf:type owl:NamedIndividual ,
+                                hi:AICapability ;
+                       hi:hasCapabilityConcept hint:PerceptionSensingCapability ;
+                       rdfs:label "Affect and frustration detection" .
+
+
+###  https://w3id.org/hi-ontology#Cap_AnatomicalIdentification
+hi:Cap_AnatomicalIdentification rdf:type owl:NamedIndividual ,
+                                         hi:HumanCapability ;
+                                rdfs:label "Anatomical Identification Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_DataComparison
+hi:Cap_DataComparison rdf:type owl:NamedIndividual ,
+                               hi:Capability ;
+                      hi:hasCapabilityConcept hint:MetaAnalysisCapability ;
+                      rdfs:label "Data Comparison Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_DataHandling
+hi:Cap_DataHandling rdf:type owl:NamedIndividual ,
+                             hi:Capability ;
+                    rdfs:label "Data Handling and Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_EmotionalSupport
+hi:Cap_EmotionalSupport rdf:type owl:NamedIndividual ,
+                                 hi:HumanCapability ;
+                        hi:hasCapabilityConcept hint:CognitiveReasoningCapability ;
+                        rdfs:label "Emotional support capability" .
+
+
+###  https://w3id.org/hi-ontology#Cap_GenerativeImageEnhancement
+hi:Cap_GenerativeImageEnhancement rdf:type owl:NamedIndividual ,
+                                           hi:AICapability ;
+                                  rdfs:label "Generative Image Enhancement Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_MedicalImageSegmentation
+hi:Cap_MedicalImageSegmentation rdf:type owl:NamedIndividual ,
+                                         hi:Capability ;
+                                rdfs:label "Medical Image Segmentation Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_MemoryCategorization
+hi:Cap_MemoryCategorization rdf:type owl:NamedIndividual ,
+                                     hi:Capability ;
+                            rdfs:label "Memory Categorization Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_MultisensoryTeaching
+hi:Cap_MultisensoryTeaching rdf:type owl:NamedIndividual ,
+                                     hi:HumanCapability ;
+                            hi:hasCapabilityConcept hint:CommunicationExplanationCapability ;
+                            rdfs:label "Multisensory teaching capability" .
+
+
+###  https://w3id.org/hi-ontology#Cap_PersonalisedRecommendation
+hi:Cap_PersonalisedRecommendation rdf:type owl:NamedIndividual ,
+                                           hi:AICapability ;
+                                  hi:hasCapabilityConcept hint:LearningAdaptationCapability ;
+                                  rdfs:label "Personalised exercise recommendation" .
+
+
+###  https://w3id.org/hi-ontology#Cap_ProgressTracking
+hi:Cap_ProgressTracking rdf:type owl:NamedIndividual ,
+                                 hi:AICapability ;
+                        hi:hasCapabilityConcept hint:PatternLearningCapability ;
+                        rdfs:label "Reading progress tracking" .
+
+
+###  https://w3id.org/hi-ontology#Cap_RadiotherapyOptimization
+hi:Cap_RadiotherapyOptimization rdf:type owl:NamedIndividual ,
+                                         hi:Capability ;
+                                rdfs:label "Radiotherapy Treatment Optimization Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_ReadingGuidance
+hi:Cap_ReadingGuidance rdf:type owl:NamedIndividual ,
+                                hi:HumanCapability ;
+                       hi:hasCapabilityConcept hint:DomainSpecificCapability ;
+                       rdfs:label "Reading guidance capability" .
+
+
+###  https://w3id.org/hi-ontology#Cap_RoboticManipulation
+hi:Cap_RoboticManipulation rdf:type owl:NamedIndividual ,
+                                    hi:AICapability ;
+                           hi:hasCapabilityConcept hint:PhysicalManipulationCapability ;
+                           rdfs:label "Robotic Manipulation Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_ScenarioSimulation
+hi:Cap_ScenarioSimulation rdf:type owl:NamedIndividual ,
+                                   hi:Capability ;
+                          rdfs:label "Scenario Simulation Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_SpatialNavigation
+hi:Cap_SpatialNavigation rdf:type owl:NamedIndividual ,
+                                  hi:Capability ;
+                         hi:hasCapabilityConcept hint:SituationalAwarenessCapability ;
+                         rdfs:label "Spatial Navigation Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#Cap_VisualDataInterpretation
+hi:Cap_VisualDataInterpretation rdf:type owl:NamedIndividual ,
+                                         hi:HumanCapability ;
+                                rdfs:label "Visual Data Interpretation Capability"@en .
+
+
+###  https://w3id.org/hi-ontology#ClonogenicAssay
+hi:ClonogenicAssay rdf:type owl:NamedIndividual ,
+                            hi:InVitroExperiment ;
+                   hi:investigatesRadiotherapy hi:FLASH_Radiotherapy ;
+                   hi:requiresImageAnalysis hi:Task_CountCellColonies ;
+                   hi:storesDataIn hi:HPC_DataPlatform ;
+                   rdfs:label "Clonogenic Assay Experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#Cohort_BabyBoomer
+hi:Cohort_BabyBoomer rdf:type owl:NamedIndividual ,
+                              hi:BabyBoomer ;
+                     owl:sameAs wd:Q797819 ;
+                     rdfs:label "Baby Boomer Cohort"@en .
+
+
+###  https://www.wikidata.org/entity/Q797819
+
+###  https://w3id.org/hi-ontology#Cohort_GenX
+hi:Cohort_GenX rdf:type owl:NamedIndividual ,
+                        hi:GenerationX ;
+               owl:sameAs wd:Q379689 ;
+               rdfs:label "Generation X Cohort"@en .
+
+
+###  https://www.wikidata.org/entity/Q379689
+
+###  https://w3id.org/hi-ontology#Cohort_GenY
+hi:Cohort_GenY rdf:type owl:NamedIndividual ,
+                        hi:GenerationY ;
+               owl:sameAs wd:Q277633 ;
+               rdfs:label "Generation Y Cohort"@en .
+
+
+###  https://www.wikidata.org/entity/Q277633
+
+###  https://w3id.org/hi-ontology#Cohort_GenZ
+hi:Cohort_GenZ rdf:type owl:NamedIndividual ,
+                        hi:GenerationZ ;
+               owl:sameAs wd:Q1987589 ;
+               rdfs:label "Generation Z Cohort"@en .
+
+
+###  https://www.wikidata.org/entity/Q1987589
+
+###  https://w3id.org/hi-ontology#CollaborativeReadingContext
+hi:CollaborativeReadingContext rdf:type owl:NamedIndividual ,
+                                        hi:Context ;
+                               hi:hasContextConcept hint:OnlineLearningContext ;
+                               rdfs:label "Collaborative reading session context" .
+
+
+###  https://w3id.org/hi-ontology#CollaborativeReading_Team
+hi:CollaborativeReading_Team rdf:type owl:NamedIndividual ,
+                                      hi:HITeam ;
+                             hi:hasGoal hi:Goal_ImproveLiteracy ;
+                             hi:hasMember hi:Alex ,
+                                          hi:AssistiveRobot_1 ,
+                                          hi:RemedialTeacher_1 ;
+                             hi:isInfluencedBy hi:CollaborativeReadingContext ;
+                             rdfs:label "Collaborative reading HI team" .
+
+
+###  https://w3id.org/hi-ontology#CollaborativeReading_UseCase
+hi:CollaborativeReading_UseCase rdf:type owl:NamedIndividual ,
+                                         hi:UseCase ;
+                                hi:hasDomainConcept hint:EducationDomain ;
+                                hi:hasHITeam hi:CollaborativeReading_Team ;
+                                hi:hasUseCaseConcept hint:AutonomousTutoringUseCase ;
+                                rdfs:label "Collaborative reading exercise use case" .
+
+
+###  https://w3id.org/hi-ontology#CompareBrainAge
+hi:CompareBrainAge rdf:type owl:NamedIndividual ,
+                            hi:Task ;
+                   hi:hasTaskConcept hint:HypothesisComparisonTask ;
+                   hi:requiresCapability hi:Cap_DataComparison ;
+                   rdfs:label "Compare the predicted with the chronological brain age"@en .
+
+
+###  https://w3id.org/hi-ontology#Complementary
+hi:Complementary rdf:type owl:NamedIndividual ,
+                          hi:MemoryCategory ;
+                 rdfs:label "Complementary Information"@en .
+
+
+###  https://w3id.org/hi-ontology#Conflicting
+hi:Conflicting rdf:type owl:NamedIndividual ,
+                        hi:MemoryCategory ;
+               rdfs:label "Conflicting Information"@en .
+
+
+###  https://w3id.org/hi-ontology#ContextualUserStudy
+hi:ContextualUserStudy rdf:type owl:NamedIndividual ,
+                                hi:UserStudy ;
+                       hi:conductedInEnvironment hi:MixedFleetWarehouse ;
+                       rdfs:label "Contextual User Study"@en .
+
+
+###  https://w3id.org/hi-ontology#Data_literacy
+hi:Data_literacy rdf:type owl:NamedIndividual ,
+                          hi:PrerequisiteKnowledge ;
+                 owl:sameAs wd:Q17067559 ;
+                 rdfs:label "Data literacy" .
+
+
+###  https://www.wikidata.org/entity/Q17067559
+
+###  https://w3id.org/hi-ontology#Decision_HumanOverride
+hi:Decision_HumanOverride rdf:type owl:NamedIndividual ,
+                                   hi:Decision ;
+                          hi:doneBy hi:novice_legal_advisor ;
+                          hi:producesOutcome hi:final_legal_advice ;
+                          rdfs:label "Human override decision"@en .
+
+
+###  https://w3id.org/hi-ontology#DiagnoseSusan
+hi:DiagnoseSusan rdf:type owl:NamedIndividual ,
+                          hi:DiagnosisTask ;
+                 hi:hasTaskConcept hint:SymptomAnalysisTask ;
+                 hi:requiresCapability hi:Eye_contact ,
+                                       hi:Note_taking ;
+                 rdfs:label "Diagnose Susan's Disorder"@en .
+
+
+###  https://w3id.org/hi-ontology#Diagnose_Patient
+hi:Diagnose_Patient rdf:type owl:NamedIndividual ,
+                             hi:Goal ;
+                    hi:hasGoalConcept hint:AccurateTrustworthyDiagnosisGoal ;
+                    hi:requiresTask hi:IdentifyInfluentialFeatures ,
+                                    hi:LoadData ,
+                                    hi:LocateGyrus ,
+                                    hi:SaveData ;
+                    rdfs:label "Diagnose Patient" .
+
+
+###  https://w3id.org/hi-ontology#Doctor-patient_interaction
+hi:Doctor-patient_interaction rdf:type owl:NamedIndividual ,
+                                       hi:HumanHumanInteraction ;
+                              hi:hasAgentInvolved hi:Doctor_1 ,
+                                                  hi:Patient_Susan ;
+                              hi:hasInteractionModalityConcept hint:VerbalDialogueModality .
+
+
+###  https://w3id.org/hi-ontology#Doctor_1
+hi:Doctor_1 rdf:type owl:NamedIndividual ,
+                     hi:MedicalProfessional ;
+            hi:hasCapability hi:Eye_contact ,
+                             hi:awareness_of_AI_limitations ;
+            rdfs:label "Doctor 1" .
+
+
+###  https://w3id.org/hi-ontology#Error_CategoryBoundaries
+hi:Error_CategoryBoundaries rdf:type owl:NamedIndividual ,
+                                     hi:ErrorCategory ;
+                            rdfs:label "Category Boundaries Error"@en .
+
+
+###  https://w3id.org/hi-ontology#Error_ImpliedInformation
+hi:Error_ImpliedInformation rdf:type owl:NamedIndividual ,
+                                     hi:ErrorCategory ;
+                            rdfs:label "Implied Information Handling Error"@en .
+
+
+###  https://w3id.org/hi-ontology#Error_Importance
+hi:Error_Importance rdf:type owl:NamedIndividual ,
+                             hi:ErrorCategory ;
+                    rdfs:label "Importance Judgment Error"@en .
+
+
+###  https://w3id.org/hi-ontology#Eval_AttrakDiff
+hi:Eval_AttrakDiff rdf:type owl:NamedIndividual ,
+                            hi:Evaluation ;
+                   hi:hasEvaluationConcept hint:Evaluation ;
+                   hi:hasExperiment hi:BrainAge_Usability ;
+                   rdfs:label "AttrakDiff Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#Eval_CSI
+hi:Eval_CSI rdf:type owl:NamedIndividual ,
+                     hi:Evaluation ;
+            hi:hasEvaluationConcept hint:Evaluation ;
+            hi:hasExperiment hi:BrainAge_Usability ;
+            rdfs:label "Creativity Support Index (CSI) Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#Eval_NASA_TLX
+hi:Eval_NASA_TLX rdf:type owl:NamedIndividual ,
+                          hi:WorkloadEvaluation ;
+                 owl:sameAs wd:Q6952366 ;
+                 hi:hasExperiment hi:BrainAge_Usability ;
+                 rdfs:label "NASA-TLX Workload Assessment"@en .
+
+
+###  https://www.wikidata.org/entity/Q6952366
+
+###  https://w3id.org/hi-ontology#Eval_TAM
+hi:Eval_TAM rdf:type owl:NamedIndividual ,
+                     hi:TrustEvaluation ;
+            hi:evaluatesTask hi:Task_PickAndPlace ;
+            rdfs:label "Technology Acceptance Model (TAM) Survey"@en ;
+            rdfs:seeAlso wd:Q112945 .
+
+
+###  https://w3id.org/hi-ontology#Eval_TiA
+hi:Eval_TiA rdf:type owl:NamedIndividual ,
+                     hi:TrustEvaluation ;
+            hi:evaluatesTask hi:Task_DynamicObstacleNav ;
+            rdfs:label "Trust in Automation Survey"@en .
+
+
+###  https://w3id.org/hi-ontology#Eval_UES
+hi:Eval_UES rdf:type owl:NamedIndividual ,
+                     hi:Evaluation ;
+            hi:hasEvaluationConcept hint:Evaluation ;
+            hi:hasExperiment hi:BrainAge_Usability ;
+            rdfs:label "User Engagement Scale (UES) Evaluation"@en .
+
+
+###  https://w3id.org/hi-ontology#Exec_AdaptReading
+hi:Exec_AdaptReading rdf:type owl:NamedIndividual ,
+                              hi:TaskExecution ;
+                     hi:hasInteractionEpisode hi:Interaction_TeamAdaptation ;
+                     hi:involvesAction hi:Action_AdaptPlan ;
+                     hi:performedBy hi:RemedialTeacher_1 ;
+                     hi:realizesTask hi:Task_AdaptReading ;
+                     hi:towardsGoal hi:Goal_ImproveLiteracy ;
+                     rdfs:label "Team adapts reading exercise" .
+
+
+###  https://w3id.org/hi-ontology#Exec_CategorizeMemories
+hi:Exec_CategorizeMemories rdf:type owl:NamedIndividual ,
+                                    hi:TaskExecution ;
+                           hi:categorizesAs hi:Complementary ,
+                                            hi:Conflicting ,
+                                            hi:Overlap ;
+                           hi:performedBy hi:Annotator_1 ,
+                                          hi:Annotator_2 ;
+                           hi:realizesTask hi:Task_CategorizeMemories ;
+                           hi:towardsGoal hi:Goal_CategoriseMemories ;
+                           rdfs:label "Annotator categorises memories from comic strip"@en .
+
+
+###  https://w3id.org/hi-ontology#Exec_GenerateReport
+hi:Exec_GenerateReport rdf:type owl:NamedIndividual ,
+                                hi:TaskExecution ;
+                       hi:involvesAction hi:Action_GenerateReport ;
+                       hi:performedBy hi:AssistiveRobot_1 ;
+                       hi:realizesTask hi:Task_GenerateProgressReport ;
+                       hi:towardsGoal hi:Goal_ImproveLiteracy ;
+                       rdfs:label "Robot generates progress report" .
+
+
+###  https://w3id.org/hi-ontology#Exec_LoadData
+hi:Exec_LoadData rdf:type owl:NamedIndividual ,
+                          hi:TaskExecution ;
+                 hi:performedBy hi:Neurologist_Res1 ;
+                 hi:realizesTask hi:LoadData ;
+                 hi:towardsGoal hi:Diagnose_Patient ;
+                 rdfs:label "Neurologist loads patient data"@en .
+
+
+###  https://w3id.org/hi-ontology#Exec_LocateGyrus
+hi:Exec_LocateGyrus rdf:type owl:NamedIndividual ,
+                             hi:TaskExecution ;
+                    hi:performedBy hi:Neurologist_Res1 ;
+                    hi:realizesTask hi:LocateGyrus ;
+                    hi:towardsGoal hi:Diagnose_Patient ;
+                    rdfs:label "Neurologist locates gyrus"@en .
+
+
+###  https://w3id.org/hi-ontology#Exec_MonitorEngagement
+hi:Exec_MonitorEngagement rdf:type owl:NamedIndividual ,
+                                   hi:TaskExecution ;
+                          hi:hasInteractionEpisode hi:Interaction_RobotAlex ;
+                          hi:performedBy hi:AssistiveRobot_1 ;
+                          hi:realizesTask hi:Task_MonitorEngagement ;
+                          hi:towardsGoal hi:Goal_ImproveLiteracy ;
+                          rdfs:label "Robot monitors Alex engagement" .
+
+
+###  https://w3id.org/hi-ontology#Exec_PrepareSession
+hi:Exec_PrepareSession rdf:type owl:NamedIndividual ,
+                                hi:TaskExecution ;
+                       hi:performedBy hi:RemedialTeacher_1 ;
+                       hi:realizesTask hi:Task_PrepareReading ;
+                       hi:towardsGoal hi:Goal_ImproveLiteracy ;
+                       rdfs:label "Teacher prepares reading session"@en .
+
+
+###  https://w3id.org/hi-ontology#Exec_ReadAloud
+hi:Exec_ReadAloud rdf:type owl:NamedIndividual ,
+                           hi:TaskExecution ;
+                  hi:hasInteractionEpisode hi:Interaction_TeacherAlex ;
+                  hi:performedBy hi:RemedialTeacher_1 ;
+                  hi:realizesTask hi:Task_ReadAloud ;
+                  hi:towardsGoal hi:Goal_ImproveLiteracy ;
+                  rdfs:label "Teacher conducts read-aloud session"@en .
+
+
+###  https://w3id.org/hi-ontology#Execution_Super_Resolutio_Image_Gen
+hi:Execution_Super_Resolutio_Image_Gen rdf:type owl:NamedIndividual ,
+                                                hi:TaskExecution ;
+                                       hi:realizesTask hi:Task_GenerateSuperResolution ;
+                                       hi:towardsGoal hi:TranslateFLASHTherapy ;
+                                       rdfs:label "Exection of generation of Super Resolution Image" .
+
+
+###  https://w3id.org/hi-ontology#Exp_InVivoAnimalModel
+hi:Exp_InVivoAnimalModel rdf:type owl:NamedIndividual ,
+                                  hi:InVivoExperiment ;
+                         hi:investigatesRadiotherapy hi:Minibeam_Radiotherapy ;
+                         hi:requiresImageAnalysis hi:Task_SegmentTumorUltrasound ;
+                         hi:storesDataIn hi:HPC_DataPlatform ;
+                         rdfs:label "In-Vivo Animal Model Irradiation"@en .
+
+
+###  https://w3id.org/hi-ontology#Explanation_BrainAge
+hi:Explanation_BrainAge rdf:type owl:NamedIndividual ,
+                                 hi:Explanation ;
+                        hi:doneBy hi:BrainAgePredictor ;
+                        rdfs:label "XAI explanation of brain age prediction"@en .
+
+
+###  https://w3id.org/hi-ontology#Eye_contact
+hi:Eye_contact rdf:type owl:NamedIndividual ,
+                        hi:Capability ;
+               rdfs:label "Eye Contact" .
+
+
+###  https://w3id.org/hi-ontology#FLASH_Radiotherapy
+hi:FLASH_Radiotherapy rdf:type owl:NamedIndividual ,
+                               skos:Concept ;
+                      owl:sameAs wd:Q112222356 ;
+                      rdfs:label "FLASH Radiotherapy"@en .
+
+
+###  https://www.wikidata.org/entity/Q112222356
+
+###  https://w3id.org/hi-ontology#Family_Law
+hi:Family_Law rdf:type owl:NamedIndividual ,
+                       hi:Law ;
+              owl:sameAs wd:Q384014 ;
+              rdfs:label "Family Law" .
+
+
+###  https://www.wikidata.org/entity/Q384014
+
+###  https://w3id.org/hi-ontology#Frustration
+hi:Frustration rdf:type owl:NamedIndividual ,
+                        hi:Emotion ;
+               hi:experiencedInContext hi:CollaborativeReadingContext ;
+               rdfs:label "Frustration" .
+
+
+###  https://w3id.org/hi-ontology#GPT4o_Fact_Checker
+hi:GPT4o_Fact_Checker rdf:type owl:NamedIndividual ,
+                               hi:ArtificialAgent ,
+                               hi:LLMAgent ;
+                      hi:hasAgentConcept hint:ArtificialAgent ;
+                      hi:hasAgentLimitation hi:true_label_bias ;
+                      hi:hasCapability hi:large_scale_info_processing ,
+                                       hi:question_generation_capability ;
+                      hi:hasPhenomenonConcept hint:ConfirmationBias ;
+                      rdfs:label "GPT4o fact checker" ;
+                      rdfs:seeAlso wd:Q125919502 .
+
+
+###  https://w3id.org/hi-ontology#GeminiLLM
+hi:GeminiLLM rdf:type owl:NamedIndividual ,
+                      hi:LLMAgent ;
+             hi:performsExecution hi:LLMSummary ;
+             rdfs:label "Gemini LLM"@en ;
+             rdfs:seeAlso wd:Q123688361 .
+
+
+###  https://w3id.org/hi-ontology#Goal_CategoriseMemories
+hi:Goal_CategoriseMemories rdf:type owl:NamedIndividual ,
+                                    hi:Goal ;
+                           hi:requiresTask hi:Task_CategorizeMemories ;
+                           rdfs:label "Categorise and analyse comic strip memories"@en .
+
+
+###  https://w3id.org/hi-ontology#Goal_ImproveLiteracy
+hi:Goal_ImproveLiteracy rdf:type owl:NamedIndividual ,
+                                 hi:Goal ;
+                        hi:hasGoalConcept hint:EffectiveLeaningGoal ;
+                        hi:requiresTask hi:Task_AdaptReading ,
+                                        hi:Task_GenerateProgressReport ,
+                                        hi:Task_MonitorEngagement ,
+                                        hi:Task_PrepareReading ,
+                                        hi:Task_ReadAloud ;
+                        rdfs:label "Improve Alex reading literacy" .
+
+
+###  https://w3id.org/hi-ontology#Guilt
+hi:Guilt rdf:type owl:NamedIndividual ,
+                  hi:Emotion ;
+         hi:experiencedInContext hi:AI_assistance_use .
+
+
+###  https://w3id.org/hi-ontology#HCI_Facilitator
+hi:HCI_Facilitator rdf:type owl:NamedIndividual ,
+                            hi:HCIExpert ;
+                   hi:facilitatesStudy hi:BrainAge_Usability ;
+                   hi:operatesInContext hi:PoliclinicoDiBari ;
+                   rdfs:label "HCI Expert - Facilitator"@en .
+
+
+###  https://w3id.org/hi-ontology#HCI_Moderator
+hi:HCI_Moderator rdf:type owl:NamedIndividual ,
+                          hi:HCIExpert ;
+                 hi:facilitatesStudy hi:BrainAge_Usability ;
+                 hi:operatesInContext hi:PoliclinicoDiBari ;
+                 rdfs:label "HCI Expert - Moderator"@en .
+
+
+###  https://w3id.org/hi-ontology#HCI_Observer
+hi:HCI_Observer rdf:type owl:NamedIndividual ,
+                         hi:HCIExpert ;
+                hi:facilitatesStudy hi:BrainAge_Usability ;
+                hi:operatesInContext hi:PoliclinicoDiBari ;
+                rdfs:label "HCI Expert - Observer"@en .
+
+
+###  https://w3id.org/hi-ontology#HPC_DataPlatform
+hi:HPC_DataPlatform rdf:type owl:NamedIndividual ,
+                             hi:DataPlatformContext ;
+                    hi:hasContextConcept hint:Context ;
+                    rdfs:label "High-Performance Computing Data Platform"@en .
+
+
+###  https://w3id.org/hi-ontology#Healthcare_Diagnosis_Team
+hi:Healthcare_Diagnosis_Team rdf:type owl:NamedIndividual ,
+                                      hi:HITeam ;
+                             hi:hasGoal hi:Diagnose_Patient ;
+                             hi:hasMember hi:AI_DiagnosticAssistant ,
+                                          hi:Doctor_1 ,
+                                          hi:Patient_Susan ;
+                             rdfs:label "Healthcare Diagnosis Team" .
+
+
+###  https://w3id.org/hi-ontology#IdentifyInfluentialFeatures
+hi:IdentifyInfluentialFeatures rdf:type owl:NamedIndividual ,
+                                        hi:Task ;
+                               hi:requiresCapability hi:Cap_VisualDataInterpretation ;
+                               rdfs:label "Identify the three most influential morphometric features"@en .
+
+
+###  https://w3id.org/hi-ontology#Interaction_AGVRerouting
+hi:Interaction_AGVRerouting rdf:type owl:NamedIndividual ,
+                                     hi:HybridInteraction ;
+                            hi:hasAgentInvolved hi:AGV_Demo_Unit ,
+                                                hi:Worker_P1 ;
+                            rdfs:label "AGV Route Congestion Rerouting Interaction"@en .
+
+
+###  https://w3id.org/hi-ontology#Interaction_RobotAlex
+hi:Interaction_RobotAlex rdf:type owl:NamedIndividual ,
+                                  hi:HybridInteraction ;
+                         hi:hasAgentInvolved hi:Alex ,
+                                             hi:AssistiveRobot_1 ;
+                         hi:hasInteractionIntentConcept hint:GuideIntent ;
+                         hi:hasInteractionModalityConcept hint:DashboardModality ;
+                         rdfs:label "Robot monitors and supports Alex" .
+
+
+###  https://w3id.org/hi-ontology#Interaction_TeacherAlex
+hi:Interaction_TeacherAlex rdf:type owl:NamedIndividual ,
+                                    hi:HumanHumanInteraction ;
+                           hi:hasAgentInvolved hi:Alex ,
+                                               hi:RemedialTeacher_1 ;
+                           hi:hasInteractionIntentConcept hint:GuideIntent ;
+                           hi:hasInteractionModalityConcept hint:VerbalDialogueModality ;
+                           rdfs:label "Teacher introduces reading to Alex" .
+
+
+###  https://w3id.org/hi-ontology#Interaction_TeamAdaptation
+hi:Interaction_TeamAdaptation rdf:type owl:NamedIndividual ,
+                                       hi:HybridInteraction ;
+                              hi:hasAgentInvolved hi:Alex ,
+                                                  hi:AssistiveRobot_1 ,
+                                                  hi:RemedialTeacher_1 ;
+                              hi:hasInteractionIntentConcept hint:NegotiationIntent ;
+                              rdfs:label "Team collaborative adaptation" .
+
+
+###  https://w3id.org/hi-ontology#JobDisplacementConcern
+hi:JobDisplacementConcern rdf:type owl:NamedIndividual ,
+                                   hi:EthicalConsideration ,
+                                   hi:SocietalImpact ;
+                          rdfs:label "Job Displacement Concern among Older Workers"@en .
+
+
+###  https://w3id.org/hi-ontology#LLMSummary
+hi:LLMSummary rdf:type owl:NamedIndividual ,
+                       hi:TaskExecution ;
+              hi:performedBy hi:GeminiLLM ;
+              hi:realizesTask hi:Task_CategorizeMemories ;
+              hi:towardsGoal hi:Goal_CategoriseMemories ;
+              rdfs:label "LLM Summary Generation"@en .
+
+
+###  https://w3id.org/hi-ontology#LLM_hallucination
+hi:LLM_hallucination rdf:type owl:NamedIndividual ,
+                              hi:Risk ;
+                     owl:sameAs wd:Q116197048 ;
+                     hi:affectsAgent hi:GPT4o_Fact_Checker ,
+                                     hi:LLama8b_fact_checker ;
+                     hi:emergesFrom hi:fact_checking ;
+                     rdfs:label "LLM hallucinations" .
+
+
+###  https://www.wikidata.org/entity/Q116197048
+
+###  https://w3id.org/hi-ontology#LLama8b_fact_checker
+hi:LLama8b_fact_checker rdf:type owl:NamedIndividual ,
+                                 hi:ArtificialAgent ,
+                                 hi:LLMAgent ;
+                        hi:hasAgentConcept hint:ArtificialAgent ;
+                        hi:hasAgentLimitation hi:half_true_label_bias ;
+                        hi:hasCapability hi:large_scale_info_processing ,
+                                         hi:question_generation_capability ;
+                        rdfs:label "Llama8b fact checker" ;
+                        rdfs:seeAlso wd:Q116894231 .
+
+
+###  https://w3id.org/hi-ontology#Labour_Law
+hi:Labour_Law rdf:type owl:NamedIndividual ,
+                       hi:Law ;
+              owl:sameAs wd:Q628967 ;
+              rdfs:label "Labour Law" .
+
+
+###  https://www.wikidata.org/entity/Q628967
+
+###  https://w3id.org/hi-ontology#LackOfExplainability
+hi:LackOfExplainability rdf:type owl:NamedIndividual ,
+                                 hi:EthicalConsideration ;
+                        rdfs:label "Lack of explainability" .
+
+
+###  https://w3id.org/hi-ontology#LoadData
+hi:LoadData rdf:type owl:NamedIndividual ,
+                     hi:Task ;
+            hi:requiresCapability hi:Cap_DataHandling ;
+            rdfs:label "Load patient data"@en .
+
+
+###  https://w3id.org/hi-ontology#LocateGyrus
+hi:LocateGyrus rdf:type owl:NamedIndividual ,
+                        hi:Task ;
+               hi:requiresCapability hi:Cap_AnatomicalIdentification ;
+               rdfs:label "Locate the left superior frontal gyrus"@en .
+
+
+###  https://w3id.org/hi-ontology#MedicalDiagnosisUseCase
+hi:MedicalDiagnosisUseCase rdf:type owl:NamedIndividual ,
+                                    hi:UseCase ;
+                           hi:hasEthicalConsideration hi:PatientDataPrivacy ;
+                           hi:hasHITeam hi:Healthcare_Diagnosis_Team ;
+                           rdfs:label "Medical Diagnosis use case" .
+
+
+###  https://w3id.org/hi-ontology#MedicalJournals
+hi:MedicalJournals rdf:type owl:NamedIndividual ,
+                            hi:MedicalKnowledgeSource ;
+                   rdfs:label "Medical Journals Database"@en .
+
+
+###  https://w3id.org/hi-ontology#MementosComicStrip
+hi:MementosComicStrip rdf:type owl:NamedIndividual ,
+                               hi:Context ;
+                      hi:hasContextConcept hint:Context ;
+                      rdfs:label "Mementos Dataset Comic Strip"@en .
+
+
+###  https://w3id.org/hi-ontology#Minibeam_Radiotherapy
+hi:Minibeam_Radiotherapy rdf:type owl:NamedIndividual ,
+                                  skos:Concept ;
+                         rdfs:label "Minibeam Radiotherapy"@en .
+
+
+###  https://w3id.org/hi-ontology#MisdiagnosisRisk
+hi:MisdiagnosisRisk rdf:type owl:NamedIndividual ,
+                             hi:Risk ;
+                    hi:affectsAgent hi:AI_DiagnosticAssistant ;
+                    hi:emergesFrom hi:MedicalDiagnosisUseCase ;
+                    rdfs:label "Risk of misdiagnosis" .
+
+
+###  https://w3id.org/hi-ontology#MixedFleetWarehouse
+hi:MixedFleetWarehouse rdf:type owl:NamedIndividual ,
+                                hi:WarehouseEnvironment ;
+                       rdfs:label "Mixed-Fleet Warehouse Environment"@en .
+
+
+###  https://w3id.org/hi-ontology#Motivation
+hi:Motivation rdf:type owl:NamedIndividual ,
+                       hi:Emotion ;
+              hi:experiencedInContext hi:CollaborativeReadingContext ;
+              rdfs:label "Motivation" .
+
+
+###  https://w3id.org/hi-ontology#Neurologist_Res1
+hi:Neurologist_Res1 rdf:type owl:NamedIndividual ,
+                             hi:Neurologist ;
+                    hi:interactsWithInterface hi:BrainAgePredictor ;
+                    hi:operatesInContext hi:PoliclinicoDiBari ;
+                    rdfs:label "Neurology Resident 1"@en .
+
+
+###  https://w3id.org/hi-ontology#Neurologist_Res2
+hi:Neurologist_Res2 rdf:type owl:NamedIndividual ,
+                             hi:Neurologist ;
+                    hi:interactsWithInterface hi:BrainAgePredictor ;
+                    hi:operatesInContext hi:PoliclinicoDiBari ;
+                    rdfs:label "Neurology Resident 2"@en .
+
+
+###  https://w3id.org/hi-ontology#Neurologist_Res3
+hi:Neurologist_Res3 rdf:type owl:NamedIndividual ,
+                             hi:Neurologist ;
+                    hi:interactsWithInterface hi:BrainAgePredictor ;
+                    hi:operatesInContext hi:PoliclinicoDiBari ;
+                    rdfs:label "Neurology Resident 3"@en .
+
+
+###  https://w3id.org/hi-ontology#Neurologist_Res4
+hi:Neurologist_Res4 rdf:type owl:NamedIndividual ,
+                             hi:Neurologist ;
+                    hi:interactsWithInterface hi:BrainAgePredictor ;
+                    hi:operatesInContext hi:PoliclinicoDiBari ;
+                    rdfs:label "Neurology Resident 4"@en .
+
+
+###  https://w3id.org/hi-ontology#Neurologist_Res5
+hi:Neurologist_Res5 rdf:type owl:NamedIndividual ,
+                             hi:Neurologist ;
+                    hi:interactsWithInterface hi:BrainAgePredictor ;
+                    hi:operatesInContext hi:PoliclinicoDiBari ;
+                    rdfs:label "Neurology Resident 5"@en .
+
+
+###  https://w3id.org/hi-ontology#Note_taking
+hi:Note_taking rdf:type owl:NamedIndividual ,
+                        hi:Capability ;
+               rdfs:label "Note-taking" .
+
+
+###  https://w3id.org/hi-ontology#OnlineStudy
+hi:OnlineStudy rdf:type owl:NamedIndividual ,
+                        hi:UserStudy ;
+               rdfs:label "Online Video Study"@en .
+
+
+###  https://w3id.org/hi-ontology#Overlap
+hi:Overlap rdf:type owl:NamedIndividual ,
+                    hi:MemoryCategory ;
+           rdfs:label "Overlapping Information"@en .
+
+
+###  https://w3id.org/hi-ontology#PatientDataPrivacy
+hi:PatientDataPrivacy rdf:type owl:NamedIndividual ,
+                               hi:EthicalConsideration ,
+                               hi:Privacy ;
+                      rdfs:label "Patient Data Privacy" .
+
+
+###  https://w3id.org/hi-ontology#Patient_Susan
+hi:Patient_Susan rdf:type owl:NamedIndividual ,
+                          hi:Patient ;
+                 rdfs:label "Patient Susan"@en .
+
+
+###  https://w3id.org/hi-ontology#PhysicalSafetyRisk
+hi:PhysicalSafetyRisk rdf:type owl:NamedIndividual ,
+                               hi:Risk ;
+                      hi:affectsAgent hi:Worker_P1 ;
+                      hi:emergesFrom hi:Warehouse_AGV_UseCase ;
+                      rdfs:label "Physical safety risk" .
+
+
+###  https://w3id.org/hi-ontology#Physical_examination
+hi:Physical_examination rdf:type owl:NamedIndividual ,
+                                 hi:TaskExecution ;
+                        hi:hasExecutionConcept hint:TaskExecution ;
+                        hi:hasInteractionEpisode hi:Doctor-patient_interaction ,
+                                                 hi:review_AI_notes ;
+                        hi:performedBy hi:Doctor_1 ;
+                        hi:realizesTask hi:DiagnoseSusan ;
+                        rdfs:label "Physical Examination" .
+
+
+###  https://w3id.org/hi-ontology#PoliclinicoDiBari
+hi:PoliclinicoDiBari rdf:type owl:NamedIndividual ,
+                              hi:ClinicalEnvironment ;
+                     owl:sameAs wd:Q3907282 ;
+                     rdfs:label "Policlinico di Bari"@en .
+
+
+###  https://www.wikidata.org/entity/Q3907282
+
+###  https://w3id.org/hi-ontology#PolitiHop_claims
+hi:PolitiHop_claims rdf:type owl:NamedIndividual ,
+                             hi:Dataset ;
+                    rdfs:comment "Dataset with 150 complex political claims from PolitiHop and Politifact (50 true, 50 half-true, 50 false) that was used as a benchmark for evaluating claim verification pipeline."@en ;
+                    rdfs:label "PolitiHop claims" .
+
+
+###  https://w3id.org/hi-ontology#PreviousTests
+hi:PreviousTests rdf:type owl:NamedIndividual ,
+                          hi:MedicalKnowledgeSource ;
+                 rdfs:label "Patient Previous Tests Repository"@en .
+
+
+###  https://w3id.org/hi-ontology#PrimaryCaregiver
+hi:PrimaryCaregiver rdf:type owl:NamedIndividual ,
+                             hi:MedicalProfessional ;
+                    hi:isAssignedToTask hi:DiagnoseSusan ;
+                    hi:treatsPatient hi:Patient_Susan ;
+                    rdfs:label "Primary Caregiver"@en .
+
+
+###  https://w3id.org/hi-ontology#RadiotheraphyUseCase
+hi:RadiotheraphyUseCase rdf:type owl:NamedIndividual ,
+                                 hi:UseCase ;
+                        hi:hasEthicalConsideration hi:LackOfExplainability ,
+                                                   hi:PatientDataPrivacy ;
+                        hi:hasHITeam hi:Radiotherapy_HI_Team ;
+                        rdfs:label "Radiotheraphy use case" .
+
+
+###  https://w3id.org/hi-ontology#Radiotherapy_HI_Team
+hi:Radiotherapy_HI_Team rdf:type owl:NamedIndividual ,
+                                 hi:HITeam ;
+                        hi:hasMember hi:AI_ColonyCounter ,
+                                     hi:AI_GenerativeSuperResolution ,
+                                     hi:AI_TreatmentPlanner ,
+                                     hi:AI_TumorSegmenter ,
+                                     hi:Researcher_Biophysicist ;
+                        rdfs:label "FLASH radiotherapy HI research team"@en .
+
+
+###  https://w3id.org/hi-ontology#RemedialTeacher_1
+hi:RemedialTeacher_1 rdf:type owl:NamedIndividual ,
+                              hi:HumanAgent ;
+                     hi:hasCapability hi:Cap_EmotionalSupport ,
+                                      hi:Cap_MultisensoryTeaching ,
+                                      hi:Cap_ReadingGuidance ;
+                     hi:operatesInContext hi:CollaborativeReadingContext ;
+                     hi:hasExperienceLevel "experienced remedial educator" ;
+                     rdfs:label "Remedial Teacher" .
+
+
+###  https://w3id.org/hi-ontology#Research_HI_Team
+hi:Research_HI_Team rdf:type owl:NamedIndividual ,
+                             hi:HITeam ;
+                    hi:hasGoal hi:novel_therapeutic_target_neurodegeneration ;
+                    hi:hasMember hi:AI_driven_virtual_agent ,
+                                 hi:Scientist ;
+                    rdfs:label "Research HI team" .
+
+
+###  https://w3id.org/hi-ontology#Researcher_Biophysicist
+hi:Researcher_Biophysicist rdf:type owl:NamedIndividual ,
+                                    hi:MedicalResearcher ;
+                           hi:operatesInContext hi:HPC_DataPlatform ;
+                           hi:providesBiologicalContext hi:Task_GenerateSuperResolution ;
+                           rdfs:label "Biophysicist Researcher"@en ;
+                           hi:validatesAIOutput hi:Execution_Super_Resolutio_Image_Gen .
+
+
+###  https://w3id.org/hi-ontology#SaveData
+hi:SaveData rdf:type owl:NamedIndividual ,
+                     hi:Task ;
+            hi:requiresCapability hi:Cap_DataHandling ;
+            rdfs:label "Save and export results to an Excel file"@en .
+
+
+###  https://w3id.org/hi-ontology#Scientist
+hi:Scientist rdf:type owl:NamedIndividual ,
+                      hi:HumanAgent ;
+             hi:hasCapability hi:deep_understanding_neurobiology ;
+             hi:operatesInContext hi:academic_research_context ;
+             hi:performsExecution hi:explore_emerging_data_trends ;
+             rdfs:label "Research Scientist" .
+
+
+###  https://w3id.org/hi-ontology#Simulation_task1
+hi:Simulation_task1 rdf:type owl:NamedIndividual ,
+                             hi:Task ;
+                    hi:requiresCapability hi:Cap_ScenarioSimulation ;
+                    rdfs:label "Simulate changes"@en ,
+                               "Simulation" .
+
+
+###  https://w3id.org/hi-ontology#Specialist1
+hi:Specialist1 rdf:type owl:NamedIndividual ,
+                        hi:MedicalProfessional ;
+               hi:isAssignedToTask hi:DiagnoseSusan ;
+               hi:treatsPatient hi:Patient_Susan ;
+               rdfs:label "Medical Specialist 1"@en .
+
+
+###  https://w3id.org/hi-ontology#Specialist2
+hi:Specialist2 rdf:type owl:NamedIndividual ,
+                        hi:MedicalProfessional ;
+               hi:isAssignedToTask hi:DiagnoseSusan ;
+               hi:treatsPatient hi:Patient_Susan ;
+               rdfs:label "Medical Specialist 2"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_AdaptReading
+hi:Task_AdaptReading rdf:type owl:NamedIndividual ,
+                              hi:CollaborationTask ;
+                     hi:hasTaskConcept hint:ConflictResolutionTask ;
+                     hi:requiresCapability hi:Cap_PersonalisedRecommendation ,
+                                           hi:Cap_ReadingGuidance ;
+                     rdfs:label "Adapt reading exercise to Alex needs" .
+
+
+###  https://w3id.org/hi-ontology#Task_CategorizeMemories
+hi:Task_CategorizeMemories rdf:type owl:NamedIndividual ,
+                                    hi:InformationCategorizationTask ;
+                           hi:requiresCapability hi:Cap_MemoryCategorization ;
+                           rdfs:label "Categorize Overlapping, Complementary, or Conflicting Memories"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_CountCellColonies
+hi:Task_CountCellColonies rdf:type owl:NamedIndividual ,
+                                   hi:MedicalImageAnalysisTask ;
+                          hi:requiresCapability hi:pattern_recognition ;
+                          rdfs:label "Automated Cell Colony Counting"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_DynamicObstacleNav
+hi:Task_DynamicObstacleNav rdf:type owl:NamedIndividual ,
+                                    hi:NavigationTask ;
+                           hi:conductedInEnvironment hi:MixedFleetWarehouse ;
+                           hi:requiresCapability hi:Cap_SpatialNavigation ;
+                           rdfs:label "Dynamic Obstacle Navigation Task"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_ExportSessionData
+hi:Task_ExportSessionData rdf:type owl:NamedIndividual ,
+                                   hi:Task ;
+                          hi:requiresCapability hi:Cap_DataHandling ;
+                          rdfs:label "Save and export session data"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_GenerateProgressReport
+hi:Task_GenerateProgressReport rdf:type owl:NamedIndividual ,
+                                        hi:Task ;
+                               hi:hasTaskConcept hint:DataCollectionTask ;
+                               hi:requiresCapability hi:Cap_ProgressTracking ;
+                               rdfs:label "Generate session progress report" .
+
+
+###  https://w3id.org/hi-ontology#Task_GenerateSuperResolution
+hi:Task_GenerateSuperResolution rdf:type owl:NamedIndividual ,
+                                         hi:MedicalImageAnalysisTask ;
+                                hi:requiresCapability hi:Cap_GenerativeImageEnhancement ;
+                                rdfs:label "Generate Super-Resolution Microscopy Images"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_MonitorEngagement
+hi:Task_MonitorEngagement rdf:type owl:NamedIndividual ,
+                                   hi:Task ;
+                          hi:hasTaskConcept hint:SituationalAssessmentTask ;
+                          hi:requiresCapability hi:Cap_AffectDetection ;
+                          rdfs:label "Monitor Alex engagement and emotional state" .
+
+
+###  https://w3id.org/hi-ontology#Task_OptimizeTreatmentPlan
+hi:Task_OptimizeTreatmentPlan rdf:type owl:NamedIndividual ,
+                                       hi:TreatmentPlanningTask ;
+                              hi:requiresCapability hi:Cap_RadiotherapyOptimization ;
+                              rdfs:label "Optimize Treatment Plan"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_PickAndPlace
+hi:Task_PickAndPlace rdf:type owl:NamedIndividual ,
+                              hi:PickAndPlaceTask ;
+                     hi:conductedInEnvironment hi:MixedFleetWarehouse ;
+                     hi:requiresCapability hi:Cap_RoboticManipulation ;
+                     rdfs:label "Pick and Place Task Demo"@en .
+
+
+###  https://w3id.org/hi-ontology#Task_PrepareReading
+hi:Task_PrepareReading rdf:type owl:NamedIndividual ,
+                                hi:CollaborationTask ;
+                       hi:hasTaskConcept hint:DataCollectionTask ;
+                       hi:requiresCapability hi:Cap_ReadingGuidance ;
+                       rdfs:label "Prepare tailored reading materials" .
+
+
+###  https://w3id.org/hi-ontology#Task_ReadAloud
+hi:Task_ReadAloud rdf:type owl:NamedIndividual ,
+                           hi:CollaborationTask ;
+                  hi:requiresCapability hi:Cap_MultisensoryTeaching ;
+                  rdfs:label "Collaborative read-aloud session" .
+
+
+###  https://w3id.org/hi-ontology#Task_SegmentTumorUltrasound
+hi:Task_SegmentTumorUltrasound rdf:type owl:NamedIndividual ,
+                                        hi:MedicalImageAnalysisTask ;
+                               hi:requiresCapability hi:Cap_MedicalImageSegmentation ;
+                               rdfs:label "Segment Tumor in Ultrasound Images"@en .
+
+
+###  https://w3id.org/hi-ontology#Tenancy_Law
+hi:Tenancy_Law rdf:type owl:NamedIndividual ,
+                        hi:Law ;
+               rdfs:label "Tenancy Law" ;
+               rdfs:seeAlso wd:Q58081925 .
+
+
+###  https://w3id.org/hi-ontology#TranslateFLASHTherapy
+hi:TranslateFLASHTherapy rdf:type owl:NamedIndividual ,
+                                  hi:ClinicalTranslationGoal ;
+                         hi:hasGoalConcept hi:FLASH_Radiotherapy ;
+                         hi:requiresTask hi:Task_CountCellColonies ,
+                                         hi:Task_GenerateSuperResolution ,
+                                         hi:Task_OptimizeTreatmentPlan ,
+                                         hi:Task_SegmentTumorUltrasound ;
+                         rdfs:label "Clinical Translation of FLASH Therapy"@en .
+
+
+###  https://w3id.org/hi-ontology#TrustErosionRisk
+hi:TrustErosionRisk rdf:type owl:NamedIndividual ,
+                             hi:Risk ;
+                    hi:emergesFrom hi:Warehouse_AGV_UseCase ;
+                    rdfs:label "Trust Erosion due to System Unpredictability"@en .
+
+
+###  https://w3id.org/hi-ontology#Warehouse_AGV_UseCase
+hi:Warehouse_AGV_UseCase rdf:type owl:NamedIndividual ,
+                                  hi:UseCase ;
+                         hi:hasDomainConcept hint:IndustrialAndServiceRoboticsDomain ;
+                         hi:hasEthicalConsideration hi:JobDisplacementConcern ;
+                         hi:hasHITeam hi:Warehouse_HI_Team ;
+                         hi:hasUseCaseConcept hint:CollaborativeManipulationUseCase ;
+                         rdfs:label "Warehouse AGV collaboration use case" .
+
+
+###  https://w3id.org/hi-ontology#Warehouse_Goal
+hi:Warehouse_Goal rdf:type owl:NamedIndividual ,
+                           hi:Goal ;
+                  hi:hasGoalConcept hint:SafeRetrievalGoal ;
+                  hi:requiresTask hi:Task_DynamicObstacleNav ,
+                                  hi:Task_PickAndPlace ;
+                  rdfs:label "Safe and efficient warehouse task completion"@en .
+
+
+###  https://w3id.org/hi-ontology#Warehouse_HI_Team
+hi:Warehouse_HI_Team rdf:type owl:NamedIndividual ,
+                              hi:HITeam ;
+                     hi:hasGoal hi:Warehouse_Goal ;
+                     hi:hasMember hi:AGV_Demo_Unit ,
+                                  hi:Worker_P1 ,
+                                  hi:Worker_P8 ;
+                     hi:isInfluencedBy hi:MixedFleetWarehouse ;
+                     rdfs:label "Warehouse AGV HI team"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P1
+hi:Worker_P1 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenX ;
+             hi:interactsWithAGV hi:AGV_Demo_Unit ;
+             hi:participatesInStudy hi:ContextualUserStudy ;
+             hi:performsWarehouseTask hi:Task_PickAndPlace ;
+             rdfs:label "Participant 1"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P2
+hi:Worker_P2 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenX ;
+             hi:participatesInStudy hi:ContextualUserStudy ;
+             rdfs:label "Participant 2"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P3
+hi:Worker_P3 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenX ;
+             hi:participatesInStudy hi:ContextualUserStudy ;
+             rdfs:label "Participant 3"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P4
+hi:Worker_P4 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenZ ;
+             hi:participatesInStudy hi:OnlineStudy ;
+             rdfs:label "Participant 4"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P5
+hi:Worker_P5 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenY ;
+             hi:participatesInStudy hi:OnlineStudy ;
+             rdfs:label "Participant 5"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P6
+hi:Worker_P6 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_BabyBoomer ;
+             hi:participatesInStudy hi:OnlineStudy ;
+             rdfs:label "Participant 6"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P7
+hi:Worker_P7 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenX ;
+             hi:participatesInStudy hi:OnlineStudy ;
+             rdfs:label "Participant 7"@en .
+
+
+###  https://w3id.org/hi-ontology#Worker_P8
+hi:Worker_P8 rdf:type owl:NamedIndividual ,
+                      hi:WarehouseWorker ;
+             hi:belongsToCohort hi:Cohort_GenZ ;
+             hi:interactsWithAGV hi:AGV_Demo_Unit ;
+             hi:participatesInStudy hi:ContextualUserStudy ;
+             rdfs:label "Participant 8"@en .
+
+
+###  https://w3id.org/hi-ontology#XAI_GlassBrain
+hi:XAI_GlassBrain rdf:type owl:NamedIndividual ,
+                           skos:Concept ;
+                  rdfs:label "Glass Brain 3D Rendering"@en .
+
+
+###  https://w3id.org/hi-ontology#XAI_TornadoPlot
+hi:XAI_TornadoPlot rdf:type owl:NamedIndividual ,
+                            skos:Concept ;
+                   rdfs:label "Tornado Plot Explanation"@en .
+
+
+###  https://w3id.org/hi-ontology#academic_research_context
+hi:academic_research_context rdf:type owl:NamedIndividual ,
+                                      hi:Context ;
+                             rdfs:label "Academic research context" .
+
+
+###  https://w3id.org/hi-ontology#ai_enthusiast_author
+hi:ai_enthusiast_author rdf:type owl:NamedIndividual ,
+                                 hi:Author ,
+                                 hi:HumanAgent ;
+                        hi:experiencesEmotion hi:Guilt ;
+                        hi:hasCapability hi:prompt_engineering_capability ;
+                        hi:hasExperienceLevel "expert AI user" ;
+                        rdfs:label "AI-enthusiast author" .
+
+
+###  https://w3id.org/hi-ontology#ai_legal_suggestion
+hi:ai_legal_suggestion rdf:type owl:NamedIndividual ,
+                                hi:Outcome ;
+                       rdfs:label "Legal suggestion" .
+
+
+###  https://w3id.org/hi-ontology#ai_literacy_development
+hi:ai_literacy_development rdf:type owl:NamedIndividual ,
+                                    hi:Task ;
+                           hi:requiresCapability hi:critical_ai_evaluation ;
+                           rdfs:label "AI literacy development" .
+
+
+###  https://w3id.org/hi-ontology#ai_literacy_framework
+hi:ai_literacy_framework rdf:type owl:NamedIndividual ,
+                                  hi:Outcome ;
+                         rdfs:label "AI literacy framework for academics" .
+
+
+###  https://w3id.org/hi-ontology#ai_literacy_recommendation
+hi:ai_literacy_recommendation rdf:type owl:NamedIndividual ,
+                                       hi:Recommendation ;
+                              hi:doneBy hi:balanced_author ;
+                              hi:producesOutcome hi:ai_literacy_framework ;
+                              rdfs:label "AI literacy recommendation" .
+
+
+###  https://w3id.org/hi-ontology#ai_model_update
+hi:ai_model_update rdf:type owl:NamedIndividual ,
+                            hi:Outcome ;
+                   rdfs:label "AI model update from expert feedback" .
+
+
+###  https://w3id.org/hi-ontology#ai_suggestion_action
+hi:ai_suggestion_action rdf:type owl:NamedIndividual ,
+                                 hi:Action ,
+                                 hi:Recommendation ;
+                        hi:doneBy hi:legal_desk_ai ;
+                        hi:producesOutcome hi:ai_legal_suggestion ;
+                        rdfs:label "Recommend legal action" .
+
+
+###  https://w3id.org/hi-ontology#ai_suggestion_review
+hi:ai_suggestion_review rdf:type owl:NamedIndividual ,
+                                 hi:Oversight ;
+                        hi:doneBy hi:ai_enthusiast_author ;
+                        hi:producesOutcome hi:refined_creative_output ;
+                        rdfs:label "Review AI refinement suggestions" .
+
+
+###  https://w3id.org/hi-ontology#analyse_AI_findings
+hi:analyse_AI_findings rdf:type owl:NamedIndividual ,
+                                hi:TaskExecution ;
+                       hi:hasInteractionEpisode hi:share_findings_in_realtime ;
+                       hi:realizesTask hi:design_experiment_and_further_investigation ;
+                       rdfs:label "Analyse AI findings" .
+
+
+###  https://w3id.org/hi-ontology#authenticity_ethics
+hi:authenticity_ethics rdf:type owl:NamedIndividual ,
+                                hi:Authenticity ;
+                       rdfs:label "Authenticity of AI-assisted work" .
+
+
+###  https://w3id.org/hi-ontology#authorship_ethics
+hi:authorship_ethics rdf:type owl:NamedIndividual ,
+                              hi:Authorship ;
+                     rdfs:label "Credit attribution and authorship" .
+
+
+###  https://w3id.org/hi-ontology#autoethnographic_reflection
+hi:autoethnographic_reflection rdf:type owl:NamedIndividual ,
+                                        hi:Task ;
+                               hi:requiresCapability hi:critical_ai_evaluation ;
+                               rdfs:label "Autoethnographic reflection" .
+
+
+###  https://w3id.org/hi-ontology#awareness_of_AI_limitations
+hi:awareness_of_AI_limitations rdf:type owl:NamedIndividual ,
+                                        hi:Capability ;
+                               hi:dependsOnCapability hi:knowledge_of_AI_system ;
+                               rdfs:label "Awarness of AI limitations" .
+
+
+###  https://w3id.org/hi-ontology#balanced_author
+hi:balanced_author rdf:type owl:NamedIndividual ,
+                            hi:Author ,
+                            hi:HumanAgent ;
+                   hi:experiencesEmotion hi:Guilt ;
+                   hi:hasAgentLimitation hi:cultural_nuance_concern ;
+                   hi:hasCapability hi:selective_ai_use ;
+                   hi:hasExperienceLevel "intermediate AI user" ;
+                   rdfs:label "Balanced use AI author" .
+
+
+###  https://w3id.org/hi-ontology#basic_legal_consultation
+hi:basic_legal_consultation rdf:type owl:NamedIndividual ,
+                                     hi:HumanCapability ;
+                            hi:isCapabilityOf hi:novice_legal_advisor ;
+                            rdfs:label "Basic legal consultation" .
+
+
+###  https://w3id.org/hi-ontology#caiborg_evaluation
+hi:caiborg_evaluation rdf:type owl:NamedIndividual ,
+                               hi:Evaluation ;
+                      hi:hasExperiment hi:caiborg_study ;
+                      rdfs:label "C(ai)borg evaluation" .
+
+
+###  https://w3id.org/hi-ontology#caiborg_study
+hi:caiborg_study rdf:type owl:NamedIndividual ,
+                          hi:AutoethnographicStudy ,
+                          hi:Experiment ;
+                 rdfs:label "C(ai)borg study" .
+
+
+###  https://w3id.org/hi-ontology#caiborg_team
+hi:caiborg_team rdf:type owl:NamedIndividual ,
+                         hi:HITeam ;
+                hi:hasConstraintConcept hint:TransparencyConstraint ;
+                hi:hasGoal hi:ethical_ai_integration_goal ;
+                hi:hasMember hi:ai_enthusiast_author ,
+                             hi:balanced_author ,
+                             hi:cautious_author ,
+                             hi:chatgpt_caiborg ;
+                hi:isInfluencedBy hi:academic_research_context ;
+                rdfs:label "C(ai)borg research team" .
+
+
+###  https://w3id.org/hi-ontology#caiborg_use_case
+hi:caiborg_use_case rdf:type owl:NamedIndividual ,
+                             hi:UseCase ;
+                    hi:hasDomainConcept hint:EducationDomain ;
+                    hi:hasEthicalConsideration hi:authenticity_ethics ,
+                                               hi:authorship_ethics ;
+                    hi:hasHITeam hi:caiborg_team ;
+                    rdfs:label "C(ai)borg AI integration" .
+
+
+###  https://w3id.org/hi-ontology#cautious_author
+hi:cautious_author rdf:type owl:NamedIndividual ,
+                            hi:Author ,
+                            hi:HumanAgent ;
+                   hi:experiencesEmotion hi:Guilt ;
+                   hi:hasCapability hi:critical_ai_evaluation ;
+                   hi:hasExperienceLevel "novice AI user" ;
+                   rdfs:label "AI-sceptic author" .
+
+
+###  https://w3id.org/hi-ontology#chatgpt_caiborg
+hi:chatgpt_caiborg rdf:type owl:NamedIndividual ,
+                            hi:ArtificialAgent ,
+                            hi:LLMAgent ;
+                   hi:hasAgentConcept hint:ArtificialAgent ;
+                   hi:hasAgentLimitation hi:lack_cultural_nuance ;
+                   hi:hasRoleConcept hint:AIAssistantRole ;
+                   hi:hasAutonomyDegree "augmentative — assists human creative work" ;
+                   rdfs:label "ChatGPT creative partner" ;
+                   rdfs:seeAlso wd:Q115564437 .
+
+
+###  https://w3id.org/hi-ontology#claim_authenticity
+hi:claim_authenticity rdf:type owl:NamedIndividual ,
+                               hi:Authenticity ;
+                      rdfs:label "Claim authenthicity" .
+
+
+###  https://w3id.org/hi-ontology#closed_domain_evidence_retrieval
+hi:closed_domain_evidence_retrieval rdf:type owl:NamedIndividual ,
+                                             hi:TaskExecution ;
+                                    hi:performedBy hi:GPT4o_Fact_Checker ,
+                                                   hi:LLama8b_fact_checker ;
+                                    hi:realizesTask hi:evidence_retrieval ;
+                                    hi:towardsGoal hi:verify_claim ;
+                                    rdfs:comment "Model retrieves answers to generated questions only using the Politifact article" ;
+                                    rdfs:label "Closed domain evidence retrieval" .
+
+
+###  https://w3id.org/hi-ontology#collaborative_reflection_task
+hi:collaborative_reflection_task rdf:type owl:NamedIndividual ,
+                                          hi:CollaborationTask ;
+                                 hi:requiresCapability hi:expert_legal_judgement ;
+                                 rdfs:label "Collaborative reflection task" .
+
+
+###  https://w3id.org/hi-ontology#combat_knowledge_erosion
+hi:combat_knowledge_erosion rdf:type owl:NamedIndividual ,
+                                     hi:Goal ;
+                            hi:hasGoalConcept hint:EffectiveLeaningGoal ;
+                            hi:hasLearningObjective hi:novice_to_expert_transition ;
+                            hi:requiresTask hi:collaborative_reflection_task ,
+                                            hi:legal_consultation_task ;
+                            rdfs:label "Combat knowledge erosion" .
+
+
+###  https://w3id.org/hi-ontology#critical_ai_evaluation
+hi:critical_ai_evaluation rdf:type owl:NamedIndividual ,
+                                   hi:HumanCapability ;
+                          hi:dependsOnCapability hi:Algorithmic_literacy ,
+                                                 hi:Data_literacy ;
+                          hi:hasCapabilityConcept hint:ReasoningCapability ;
+                          hi:isCapabilityOf hi:cautious_author ;
+                          rdfs:label "Critical AI evaluation" .
+
+
+###  https://w3id.org/hi-ontology#cultural_nuance_concern
+hi:cultural_nuance_concern rdf:type owl:NamedIndividual ,
+                                    hi:KnowledgeGap ;
+                           rdfs:label "Cultural nuance concern" .
+
+
+###  https://w3id.org/hi-ontology#data_mining
+hi:data_mining rdf:type owl:NamedIndividual ,
+                        hi:Capability ;
+               rdfs:label "Data mining" .
+
+
+###  https://w3id.org/hi-ontology#deep_understanding_neurobiology
+hi:deep_understanding_neurobiology rdf:type owl:NamedIndividual ,
+                                            hi:Capability ;
+                                   hi:hasCapabilityConcept hint:DomainSpecificCapability .
+
+
+###  https://w3id.org/hi-ontology#design_experiment_and_further_investigation
+hi:design_experiment_and_further_investigation rdf:type owl:NamedIndividual ,
+                                                        hi:Task ;
+                                               hi:requiresCapability hi:deep_understanding_neurobiology ;
+                                               rdfs:label "Design experiments and further investigations" .
+
+
+###  https://w3id.org/hi-ontology#direct_prompting
+hi:direct_prompting rdf:type owl:NamedIndividual ,
+                             hi:Action ;
+                    hi:doneBy hi:GPT4o_Fact_Checker ,
+                              hi:LLama8b_fact_checker ;
+                    rdfs:label "Direct prompting" .
+
+
+###  https://w3id.org/hi-ontology#ethical_ai_integration_goal
+hi:ethical_ai_integration_goal rdf:type owl:NamedIndividual ,
+                                        hi:Goal ;
+                               hi:hasLearningObjective hi:reframe_guilt_as_growth ;
+                               hi:requiresTask hi:ai_literacy_development ,
+                                               hi:autoethnographic_reflection ,
+                                               hi:human_ai_ideation_task ;
+                               rdfs:label "Ethical AI integration goal" .
+
+
+###  https://w3id.org/hi-ontology#evidence_domain_experiment
+hi:evidence_domain_experiment rdf:type owl:NamedIndividual ,
+                                       hi:Experiment ;
+                              rdfs:comment "compares the closed domain (Politifact article) vs open domain (Google/SERP) evidence retrieval." ;
+                              rdfs:label "Evidence domain experiment" .
+
+
+###  https://w3id.org/hi-ontology#evidence_retrieval
+hi:evidence_retrieval rdf:type owl:NamedIndividual ,
+                               hi:Task ;
+                      hi:hasTaskConcept hint:DataCollectionTask ;
+                      hi:requiresCapability hi:large_scale_info_processing ;
+                      rdfs:label "Evidence retrieval" .
+
+
+###  https://w3id.org/hi-ontology#examine_unexplored_genetic_markers
+hi:examine_unexplored_genetic_markers rdf:type owl:NamedIndividual ,
+                                               hi:Action ;
+                                      hi:doneBy hi:Scientist ;
+                                      hi:producesOutcome hi:identified_unexplored_genetic_markers ;
+                                      rdfs:label "Examine unexplored gentic markers" .
+
+
+###  https://w3id.org/hi-ontology#expert_fact_checker
+hi:expert_fact_checker rdf:type owl:NamedIndividual ,
+                                hi:FactChecker ,
+                                hi:HumanAgent ;
+                       hi:hasCapability hi:question_generation_capability ;
+                       hi:isExpertIn hi:journalism ;
+                       hi:hasExperienceLevel "experienced professional" ;
+                       rdfs:label "Expert fact checker" .
+
+
+###  https://w3id.org/hi-ontology#expert_feedback_action
+hi:expert_feedback_action rdf:type owl:NamedIndividual ,
+                                   hi:FeedbackLoop ;
+                          hi:doneBy hi:expert_legal_advisor ;
+                          hi:producesOutcome hi:ai_model_update ;
+                          rdfs:label "Expert feedback to AI" .
+
+
+###  https://w3id.org/hi-ontology#expert_legal_advisor
+hi:expert_legal_advisor rdf:type owl:NamedIndividual ,
+                                 hi:HumanAgent ,
+                                 hi:LegalAdvisor ;
+                        hi:hasCapability hi:expert_legal_judgement ;
+                        hi:hasKnowledge hi:tacit_legal_practice ;
+                        hi:isExpertIn hi:Family_Law ,
+                                      hi:Labour_Law ,
+                                      hi:Tenancy_Law ;
+                        hi:hasExperienceLevel "expert" ;
+                        rdfs:label "Expert legal advisor" .
+
+
+###  https://w3id.org/hi-ontology#expert_legal_judgement
+hi:expert_legal_judgement rdf:type owl:NamedIndividual ,
+                                   hi:HumanCapability ;
+                          hi:hasCapabilityConcept hint:CognitiveReasoningCapability ;
+                          hi:isCapabilityOf hi:expert_legal_advisor ;
+                          rdfs:label "Expert legal judgement" .
+
+
+###  https://w3id.org/hi-ontology#expert_question_generation
+hi:expert_question_generation rdf:type owl:NamedIndividual ,
+                                       hi:TaskExecution ;
+                              hi:evaluatedBy hi:fact_checking_evaluation ;
+                              hi:involvesAction hi:reverse_engineering_verification_question ;
+                              hi:performedBy hi:expert_fact_checker ;
+                              hi:realizesTask hi:question_generation ;
+                              hi:towardsGoal hi:verify_claim ;
+                              rdfs:label "Expert question generation" .
+
+
+###  https://w3id.org/hi-ontology#expert_reflection_execution
+hi:expert_reflection_execution rdf:type owl:NamedIndividual ,
+                                        hi:TaskExecution ;
+                               hi:involvesAction hi:expert_feedback_action ;
+                               hi:performedBy hi:expert_legal_advisor ;
+                               hi:realizesTask hi:collaborative_reflection_task ;
+                               hi:towardsGoal hi:combat_knowledge_erosion ;
+                               rdfs:label "Expert reflection execution" .
+
+
+###  https://w3id.org/hi-ontology#explore_emerging_data_trends
+hi:explore_emerging_data_trends rdf:type owl:NamedIndividual ,
+                                         hi:TaskExecution ;
+                                hi:involvesAction hi:examine_unexplored_genetic_markers ;
+                                hi:realizesTask hi:uncover_new_research_avenues ;
+                                rdfs:label "Explore emerging data trends" .
+
+
+###  https://w3id.org/hi-ontology#fact_checking
+hi:fact_checking rdf:type owl:NamedIndividual ,
+                          hi:UseCase ;
+                 hi:hasEthicalConsideration hi:claim_authenticity ;
+                 hi:hasHITeam hi:fact_checking_team ;
+                 rdfs:label "Fact checking" .
+
+
+###  https://w3id.org/hi-ontology#fact_checking_evaluation
+hi:fact_checking_evaluation rdf:type owl:NamedIndividual ,
+                                     hi:Evaluation ;
+                            hi:hasEvaluationConcept hint:Evaluation ;
+                            hi:hasExperiment hi:evidence_domain_experiment ,
+                                             hi:question_generation_experiment ,
+                                             hi:veracity_prediction_experiment ;
+                            hi:hasMetricConcept hint:FairOutcomeMetric ;
+                            hi:usesDataset hi:PolitiHop_claims ;
+                            rdfs:label "Fact checking evalutation" .
+
+
+###  https://w3id.org/hi-ontology#fact_checking_team
+hi:fact_checking_team rdf:type owl:NamedIndividual ,
+                               hi:HITeam ;
+                      hi:hasGoal hi:verify_claim ;
+                      hi:hasMember hi:GPT4o_Fact_Checker ,
+                                   hi:LLama8b_fact_checker ,
+                                   hi:expert_fact_checker ,
+                                   hi:novice_fact_checker ;
+                      rdfs:label "Fact checking team" .
+
+
+###  https://w3id.org/hi-ontology#few_shot_example_prompting
+hi:few_shot_example_prompting rdf:type owl:NamedIndividual ,
+                                       hi:Action ;
+                              hi:doneBy hi:expert_fact_checker ;
+                              rdfs:label "Few shot example prompting" .
+
+
+###  https://w3id.org/hi-ontology#few_shot_prompt_interaction
+hi:few_shot_prompt_interaction rdf:type owl:NamedIndividual ,
+                                        hi:Interaction ;
+                               hi:hasAgentInvolved hi:GPT4o_Fact_Checker ,
+                                                   hi:LLama8b_fact_checker ,
+                                                   hi:expert_fact_checker ;
+                               hi:hasInteractionModalityConcept hint:TextChatModality ;
+                               rdfs:label "Few shot promt interaction" .
+
+
+###  https://w3id.org/hi-ontology#final_legal_advice
+hi:final_legal_advice rdf:type owl:NamedIndividual ,
+                               hi:Outcome ;
+                      rdfs:label "Final legal advice" .
+
+
+###  https://w3id.org/hi-ontology#gpt4o_veracity_prediction
+hi:gpt4o_veracity_prediction rdf:type owl:NamedIndividual ,
+                                      hi:TaskExecution ;
+                             hi:involvesAction hi:journalist_verdict_oversight ,
+                                               hi:veracity_label_prediction ;
+                             hi:performedBy hi:GPT4o_Fact_Checker ;
+                             hi:realizesTask hi:veracity_prediction ;
+                             rdfs:label "GPT4o veracity prediciton" .
+
+
+###  https://w3id.org/hi-ontology#guilt_reflection_record
+hi:guilt_reflection_record rdf:type owl:NamedIndividual ,
+                                    hi:Outcome ;
+                           rdfs:label "Guilt reflection diary record" .
+
+
+###  https://w3id.org/hi-ontology#half_true_label_bias
+hi:half_true_label_bias rdf:type owl:NamedIndividual ,
+                                 hi:Bias ;
+                        rdfs:comment "Model systematically predicts half-true verdicts when it cannot find sufficient evidence to answer all the questions, defaulting to hedging label."@en ;
+                        rdfs:label "Half-true label bias" .
+
+
+###  https://w3id.org/hi-ontology#hilo_design_study
+hi:hilo_design_study rdf:type owl:NamedIndividual ,
+                              hi:Experiment ;
+                     rdfs:label "HILO design study" .
+
+
+###  https://w3id.org/hi-ontology#hilo_evaluation
+hi:hilo_evaluation rdf:type owl:NamedIndividual ,
+                            hi:Evaluation ;
+                   hi:hasExperiment hi:hilo_design_study ;
+                   rdfs:label "HILO evaluation" .
+
+
+###  https://w3id.org/hi-ontology#hilo_use_case
+hi:hilo_use_case rdf:type owl:NamedIndividual ,
+                          hi:UseCase ;
+                 hi:hasDomainConcept hint:LawAndPolicyDomain ;
+                 hi:hasEthicalConsideration hi:knowledge_erosion_risk ;
+                 hi:hasHITeam hi:legal_desk_team ;
+                 rdfs:label "HILO legal desk use case" .
+
+
+###  https://w3id.org/hi-ontology#human_ai_ideation_interaction
+hi:human_ai_ideation_interaction rdf:type owl:NamedIndividual ,
+                                          hi:HybridInteraction ;
+                                 hi:hasAgentInvolved hi:ai_enthusiast_author ,
+                                                     hi:chatgpt_caiborg ;
+                                 rdfs:label "Human-AI ideation interaction" ;
+                                 hi:hasInteractionIntentConcep hint:GuideIntent .
+
+
+###  https://w3id.org/hi-ontology#human_ai_ideation_task
+hi:human_ai_ideation_task rdf:type owl:NamedIndividual ,
+                                   hi:CollaborationTask ;
+                          hi:requiresCapability hi:prompt_engineering_capability ;
+                          rdfs:label "Human-AI ideation task" .
+
+
+###  https://w3id.org/hi-ontology#human_override_action
+hi:human_override_action rdf:type owl:NamedIndividual ,
+                                  hi:Oversight ;
+                         hi:doneBy hi:novice_legal_advisor ;
+                         hi:producesOutcome hi:final_legal_advice ;
+                         rdfs:label "Human override or acceptance" .
+
+
+###  https://w3id.org/hi-ontology#ideation_execution
+hi:ideation_execution rdf:type owl:NamedIndividual ,
+                               hi:TaskExecution ;
+                      hi:hasInteractionEpisode hi:human_ai_ideation_interaction ;
+                      hi:involvesAction hi:ai_suggestion_review ,
+                                        hi:ideation_prompting ;
+                      hi:performedBy hi:ai_enthusiast_author ;
+                      hi:realizesTask hi:human_ai_ideation_task ;
+                      hi:towardsGoal hi:ethical_ai_integration_goal ;
+                      rdfs:label "Human-AI ideation execution" .
+
+
+###  https://w3id.org/hi-ontology#ideation_prompting
+hi:ideation_prompting rdf:type owl:NamedIndividual ,
+                               hi:Action ;
+                      hi:doneBy hi:ai_enthusiast_author ;
+                      hi:producesOutcome hi:structured_draft ;
+                      rdfs:label "Ideation prompting" .
+
+
+###  https://w3id.org/hi-ontology#identified_unexplored_genetic_markers
+hi:identified_unexplored_genetic_markers rdf:type owl:NamedIndividual ,
+                                                  hi:Outcome ;
+                                         rdfs:label "Identified new genetic markers affecting disease pathway" .
+
+
+###  https://w3id.org/hi-ontology#inter_author_dialogue
+hi:inter_author_dialogue rdf:type owl:NamedIndividual ,
+                                  hi:Action ;
+                         hi:doneBy hi:cautious_author ;
+                         hi:producesOutcome hi:guilt_reflection_record ;
+                         rdfs:label "Internal guilt dialog" .
+
+
+###  https://w3id.org/hi-ontology#journalism
+hi:journalism rdf:type owl:NamedIndividual ,
+                       hi:ExpertiseDomain ;
+              owl:sameAs wd:Q11030 ;
+              rdfs:comment "Journalism" ;
+              rdfs:label "Journalism" .
+
+
+###  https://www.wikidata.org/entity/Q11030
+
+###  https://w3id.org/hi-ontology#journalist_verdict_oversight
+hi:journalist_verdict_oversight rdf:type owl:NamedIndividual ,
+                                         hi:Oversight ;
+                                rdfs:label "Jorunalist verdict oversight" .
+
+
+###  https://w3id.org/hi-ontology#knowledge_erosion_risk
+hi:knowledge_erosion_risk rdf:type owl:NamedIndividual ,
+                                   hi:EthicalConsideration ,
+                                   hi:SocietalImpact ;
+                          rdfs:label "Knowledge erosion" .
+
+
+###  https://w3id.org/hi-ontology#knowledge_of_AI_system
+hi:knowledge_of_AI_system rdf:type owl:NamedIndividual ,
+                                   hi:PrerequisiteKnowledge ;
+                          rdfs:label "Knowledge of AI system" .
+
+
+###  https://w3id.org/hi-ontology#lack_cultural_nuance
+hi:lack_cultural_nuance rdf:type owl:NamedIndividual ,
+                                 hi:KnowledgeGap ;
+                        rdfs:label "Lack of cultural nuance" .
+
+
+###  https://w3id.org/hi-ontology#lack_situational_awareness
+hi:lack_situational_awareness rdf:type owl:NamedIndividual ,
+                                       hi:KnowledgeGap ;
+                              rdfs:label "Lack of situational awareness" .
+
+
+###  https://w3id.org/hi-ontology#large_scale_info_processing
+hi:large_scale_info_processing rdf:type owl:NamedIndividual ,
+                                        hi:Capability ;
+                               rdfs:label "Large scale information processing" .
+
+
+###  https://w3id.org/hi-ontology#large_scale_legal_retrieval
+hi:large_scale_legal_retrieval rdf:type owl:NamedIndividual ,
+                                        hi:AICapability ;
+                               hi:hasCapabilityConcept hint:MetaAnalysisCapability ;
+                               hi:isCapabilityOf hi:legal_desk_ai ;
+                               rdfs:label "Large scale legal retrieval" .
+
+
+###  https://w3id.org/hi-ontology#legal_consultation_task
+hi:legal_consultation_task rdf:type owl:NamedIndividual ,
+                                    hi:CollaborationTask ;
+                           hi:requiresCapability hi:basic_legal_consultation ;
+                           rdfs:label "Legal consultation task" .
+
+
+###  https://w3id.org/hi-ontology#legal_desk_ai
+hi:legal_desk_ai rdf:type owl:NamedIndividual ,
+                          hi:ArtificialAgent ;
+                 hi:hasAgentConcept hint:AIAdvisorRole ;
+                 hi:hasAgentLimitation hi:lack_situational_awareness ;
+                 hi:hasCapability hi:large_scale_legal_retrieval ;
+                 hi:hasAutonomyDegree "supervised — AI suggests, human retains final authority" ;
+                 rdfs:label "Legal desk AI" .
+
+
+###  https://w3id.org/hi-ontology#legal_desk_team
+hi:legal_desk_team rdf:type owl:NamedIndividual ,
+                            hi:HITeam ;
+                   hi:hasConstraintConcept hint:EthicalConstraint ;
+                   hi:hasGoal hi:combat_knowledge_erosion ;
+                   hi:hasMember hi:expert_legal_advisor ,
+                                hi:legal_desk_ai ,
+                                hi:novice_legal_advisor ;
+                   hi:isInfluencedBy hi:legal_organisation_context ;
+                   rdfs:label "Legal desk HI team" .
+
+
+###  https://w3id.org/hi-ontology#legal_organisation_context
+hi:legal_organisation_context rdf:type owl:NamedIndividual ,
+                                       hi:Context ;
+                              rdfs:label "Legal organisation context" .
+
+
+###  https://w3id.org/hi-ontology#limited_legal_experience
+hi:limited_legal_experience rdf:type owl:NamedIndividual ,
+                                     hi:KnowledgeGap ;
+                            rdfs:label "Limited legal experience" .
+
+
+###  https://w3id.org/hi-ontology#llama8b_veracity_prediction
+hi:llama8b_veracity_prediction rdf:type owl:NamedIndividual ,
+                                        hi:TaskExecution ;
+                               hi:evaluatedBy hi:fact_checking_evaluation ;
+                               hi:involvesAction hi:veracity_label_prediction ;
+                               hi:performedBy hi:LLama8b_fact_checker ;
+                               hi:realizesTask hi:veracity_prediction ;
+                               rdfs:label "Llama8b veracity prediction" .
+
+
+###  https://w3id.org/hi-ontology#llm_question_generation
+hi:llm_question_generation rdf:type owl:NamedIndividual ,
+                                    hi:TaskExecution ;
+                           hi:hasInteractionEpisode hi:few_shot_prompt_interaction ;
+                           hi:involvesAction hi:direct_prompting ,
+                                             hi:few_shot_example_prompting ;
+                           hi:performedBy hi:GPT4o_Fact_Checker ,
+                                          hi:LLama8b_fact_checker ;
+                           hi:realizesTask hi:question_generation ;
+                           rdfs:label "LLM question generation" .
+
+
+###  https://w3id.org/hi-ontology#neurodegenerative_diseases_research
+hi:neurodegenerative_diseases_research rdf:type owl:NamedIndividual ,
+                                                hi:UseCase ;
+                                       hi:hasDomainConcept hint:MedicalDomain ;
+                                       hi:hasHITeam hi:Research_HI_Team ;
+                                       rdfs:label "Neurodegenerative disease research" .
+
+
+###  https://w3id.org/hi-ontology#novel_therapeutic_target_neurodegeneration
+hi:novel_therapeutic_target_neurodegeneration rdf:type owl:NamedIndividual ,
+                                                       hi:Goal ;
+                                              hi:requiresTask hi:design_experiment_and_further_investigation ,
+                                                              hi:uncover_new_research_avenues ;
+                                              rdfs:label "Novel therapeutic target for neruodegeneration" .
+
+
+###  https://w3id.org/hi-ontology#novice_ai_consultation
+hi:novice_ai_consultation rdf:type owl:NamedIndividual ,
+                                   hi:TaskExecution ;
+                          hi:hasInteractionEpisode hi:novice_ai_interaction ;
+                          hi:hasMethodConcept hint:CooperativeLearningMethod ;
+                          hi:involvesAction hi:ai_suggestion_action ,
+                                            hi:human_override_action ;
+                          hi:performedBy hi:novice_legal_advisor ;
+                          hi:realizesTask hi:legal_consultation_task ;
+                          hi:towardsGoal hi:combat_knowledge_erosion ;
+                          rdfs:label "Novice-AI consultation execution" .
+
+
+###  https://w3id.org/hi-ontology#novice_ai_interaction
+hi:novice_ai_interaction rdf:type owl:NamedIndividual ,
+                                  hi:HybridInteraction ;
+                         hi:hasAgentInvolved hi:legal_desk_ai ,
+                                             hi:novice_legal_advisor ;
+                         rdfs:label "Novice-AI consultation interaction" .
+
+
+###  https://w3id.org/hi-ontology#novice_fact_checker
+hi:novice_fact_checker rdf:type owl:NamedIndividual ,
+                                hi:FactChecker ,
+                                hi:HumanAgent ;
+                       hi:hasCapability hi:question_generation_capability ;
+                       hi:hasExperienceLevel "novice" ;
+                       rdfs:label "Novice fact checker" .
+
+
+###  https://w3id.org/hi-ontology#novice_legal_advisor
+hi:novice_legal_advisor rdf:type owl:NamedIndividual ,
+                                 hi:HumanAgent ,
+                                 hi:LegalAdvisor ;
+                        hi:hasAgentLimitation hi:limited_legal_experience ;
+                        hi:hasCapability hi:basic_legal_consultation ;
+                        hi:hasRoleConcept hint:LearnerRole ;
+                        hi:hasExperienceLevel "novice" ;
+                        rdfs:label "Novice legal advisor" .
+
+
+###  https://w3id.org/hi-ontology#novice_to_expert_transition
+hi:novice_to_expert_transition rdf:type owl:NamedIndividual ,
+                                        hi:LearningObjective ;
+                               rdfs:label "Novice to expert transition" .
+
+
+###  https://w3id.org/hi-ontology#open_domain_evidence_retrieval
+hi:open_domain_evidence_retrieval rdf:type owl:NamedIndividual ,
+                                           hi:TaskExecution ;
+                                  hi:evaluatedBy hi:fact_checking_evaluation ;
+                                  hi:performedBy hi:GPT4o_Fact_Checker ,
+                                                 hi:LLama8b_fact_checker ;
+                                  hi:realizesTask hi:evidence_retrieval ;
+                                  rdfs:comment "model queries Google/SERP and processes top web results to asnwer questions" ;
+                                  rdfs:label "open domain evidence retrieval" .
+
+
+###  https://w3id.org/hi-ontology#pattern_recognition
+hi:pattern_recognition rdf:type owl:NamedIndividual ,
+                                hi:Capability ;
+                       hi:hasCapabilityConcept hint:PatternLearningCapability ;
+                       rdfs:label "Pattern recognition" .
+
+
+###  https://w3id.org/hi-ontology#physical_examination_notes
+hi:physical_examination_notes rdf:type owl:NamedIndividual ,
+                                       hi:Outcome ;
+                              rdfs:label "Physical examination notes" .
+
+
+###  https://w3id.org/hi-ontology#prompt_engineering_capability
+hi:prompt_engineering_capability rdf:type owl:NamedIndividual ,
+                                          hi:HumanCapability ;
+                                 hi:hasCapabilityConcept hint:CommunicationExplanationCapability ;
+                                 hi:isCapabilityOf hi:ai_enthusiast_author ;
+                                 rdfs:label "Prompt engineering capability" .
+
+
+###  https://w3id.org/hi-ontology#question_generation
+hi:question_generation rdf:type owl:NamedIndividual ,
+                                hi:Task ;
+                       hi:requiresCapability hi:question_generation_capability ;
+                       rdfs:label "Question generation" .
+
+
+###  https://w3id.org/hi-ontology#question_generation_capability
+hi:question_generation_capability rdf:type owl:NamedIndividual ,
+                                           hi:Capability ;
+                                  rdfs:label "Question generation capability" .
+
+
+###  https://w3id.org/hi-ontology#question_generation_experiment
+hi:question_generation_experiment rdf:type owl:NamedIndividual ,
+                                           hi:Experiment ;
+                                  hi:hasExperimentConcept hint:Experiment ;
+                                  hi:hasMetricTested hint:AnswerAccuracyMetric ;
+                                  rdfs:comment "compares 4 question generation methods against eachtoher (journalist vs novice vs GPT4o vs Llama8b)"@en ;
+                                  rdfs:label "Question generation method experiment"@en .
+
+
+###  https://w3id.org/hi-ontology#refined_creative_output
+hi:refined_creative_output rdf:type owl:NamedIndividual ,
+                                    hi:Outcome ;
+                           rdfs:label "Refined human-AI creative output" .
+
+
+###  https://w3id.org/hi-ontology#reflection_execution
+hi:reflection_execution rdf:type owl:NamedIndividual ,
+                                 hi:TaskExecution ;
+                        hi:hasExecutionConcept hint:ProvideLearningHistoryTaskExecution ;
+                        hi:involvesAction hi:inter_author_dialogue ;
+                        hi:performedBy hi:ai_enthusiast_author ,
+                                       hi:balanced_author ,
+                                       hi:cautious_author ;
+                        hi:realizesTask hi:autoethnographic_reflection ;
+                        hi:towardsGoal hi:ethical_ai_integration_goal ;
+                        rdfs:label "Author's internal reflection execution" .
+
+
+###  https://w3id.org/hi-ontology#reframe_guilt_as_growth
+hi:reframe_guilt_as_growth rdf:type owl:NamedIndividual ,
+                                    hi:LearningObjective ;
+                           rdfs:label "Reframe AI guilt as empowerment" .
+
+
+###  https://w3id.org/hi-ontology#reverse_engineering_verification_question
+hi:reverse_engineering_verification_question rdf:type owl:NamedIndividual ,
+                                                      hi:Action ;
+                                             hi:doneBy hi:expert_fact_checker ;
+                                             hi:producesOutcome hi:verification_question ;
+                                             rdfs:label "Reverse engineering verification question" .
+
+
+###  https://w3id.org/hi-ontology#review_AI_notes
+hi:review_AI_notes rdf:type owl:NamedIndividual ,
+                            hi:Interaction ;
+                   hi:hasAgentInvolved hi:AI_DiagnosticAssistant ,
+                                       hi:Doctor_1 ;
+                   rdfs:label "Review AI notes" .
+
+
+###  https://w3id.org/hi-ontology#selective_ai_use
+hi:selective_ai_use rdf:type owl:NamedIndividual ,
+                             hi:HumanCapability ;
+                    hi:isCapabilityOf hi:balanced_author ;
+                    rdfs:label "Selective AI use" .
+
+
+###  https://w3id.org/hi-ontology#share_findings_in_realtime
+hi:share_findings_in_realtime rdf:type owl:NamedIndividual ,
+                                       hi:Interaction ;
+                              hi:hasAgentInvolved hi:AI_driven_virtual_agent ,
+                                                  hi:Scientist ;
+                              rdfs:label "Share findings in real-time" .
+
+
+###  https://w3id.org/hi-ontology#skill_erosion_risk
+hi:skill_erosion_risk rdf:type owl:NamedIndividual ,
+                               hi:Risk ;
+                      hi:affectsAgent hi:ai_enthusiast_author ;
+                      hi:emergesFrom hi:caiborg_use_case ;
+                      rdfs:label "Academic-skill erosion" .
+
+
+###  https://w3id.org/hi-ontology#structured_draft
+hi:structured_draft rdf:type owl:NamedIndividual ,
+                             hi:Outcome ;
+                    rdfs:label "AI-generated structured draft" .
+
+
+###  https://w3id.org/hi-ontology#tacit_legal_practice
+hi:tacit_legal_practice rdf:type owl:NamedIndividual ,
+                                 hi:TacitKnowledge ;
+                        rdfs:comment "Undocumented non-canonical legal practices held by expert advisors; at risk of organisational erosion when experts leave or AI substitutes their role."@en ;
+                        rdfs:label "Tacit legal practice knowledge" .
+
+
+###  https://w3id.org/hi-ontology#true_label_bias
+hi:true_label_bias rdf:type owl:NamedIndividual ,
+                            hi:Bias ;
+                   rdfs:comment "Tendency of the model to overpredict the True label over all question generatio  and evidence retrieval conditions" ;
+                   rdfs:label "True label bias" .
+
+
+###  https://w3id.org/hi-ontology#uncover_new_research_avenues
+hi:uncover_new_research_avenues rdf:type owl:NamedIndividual ,
+                                         hi:Task ;
+                                hi:requiresCapability hi:data_mining ,
+                                                      hi:pattern_recognition ;
+                                rdfs:label "Uncover new research avenues" .
+
+
+###  https://w3id.org/hi-ontology#veracity_label_prediction
+hi:veracity_label_prediction rdf:type owl:NamedIndividual ,
+                                      hi:Prediction ;
+                             rdfs:label "Veracity label prediction" .
+
+
+###  https://w3id.org/hi-ontology#veracity_prediction
+hi:veracity_prediction rdf:type owl:NamedIndividual ,
+                                hi:Task ;
+                       hi:requiresCapability hi:large_scale_info_processing ;
+                       rdfs:label "Veracity prediction" .
+
+
+###  https://w3id.org/hi-ontology#veracity_prediction_experiment
+hi:veracity_prediction_experiment rdf:type owl:NamedIndividual ,
+                                           hi:Experiment ;
+                                  hi:hasExperimentConcept hint:Experiment ;
+                                  hi:hasMetricTested hint:AnswerAccuracyMetric ;
+                                  rdfs:comment "compares GPT4o and Llama8b as the final label predictors, lookig at systematic biases." ;
+                                  rdfs:label "Veracity prediction experiment" .
+
+
+###  https://w3id.org/hi-ontology#verification_question
+hi:verification_question rdf:type owl:NamedIndividual ,
+                                  hi:Outcome ;
+                         rdfs:label "Verification question" .
+
+
+###  https://w3id.org/hi-ontology#verify_claim
+hi:verify_claim rdf:type owl:NamedIndividual ,
+                         hi:Goal ;
+                hi:hasGoalConcept hint:FairAccurateVerdictGoal ;
+                hi:requiresTask hi:evidence_retrieval ,
+                                hi:question_generation ,
+                                hi:veracity_prediction ;
+                rdfs:label "Verify claim" .
+
+
+###  https://w3id.org/hi-ontology#write_up_of_examination
+hi:write_up_of_examination rdf:type owl:NamedIndividual ,
+                                    hi:Action ;
+                           hi:doneBy hi:AI_DiagnosticAssistant ;
+                           hi:producesOutcome hi:physical_examination_notes ;
+                           rdfs:label "Write-up of examination" .
+
+
+###  https://w3id.org/hi-thesaurus/AIAdvisorRole
+hint:AIAdvisorRole rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/AIAssistantRole
+hint:AIAssistantRole rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/AccurateTrustworthyDiagnosisGoal
+hint:AccurateTrustworthyDiagnosisGoal rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/AnswerAccuracyMetric
+hint:AnswerAccuracyMetric rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ArtificialAgent
+hint:ArtificialAgent rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/AutonomousTutoringUseCase
+hint:AutonomousTutoringUseCase rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/CognitiveReasoningCapability
+hint:CognitiveReasoningCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/CollaborativeManipulationUseCase
+hint:CollaborativeManipulationUseCase rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/CommunicationExplanationCapability
+hint:CommunicationExplanationCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ConfirmationBias
+hint:ConfirmationBias rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ConflictResolutionTask
+hint:ConflictResolutionTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/Context
+hint:Context rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/CooperativeLearningMethod
+hint:CooperativeLearningMethod rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/DashboardModality
+hint:DashboardModality rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/DataCollectionTask
+hint:DataCollectionTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/DomainSpecificCapability
+hint:DomainSpecificCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/EducationDomain
+hint:EducationDomain rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/EffectiveLeaningGoal
+hint:EffectiveLeaningGoal rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/EthicalConstraint
+hint:EthicalConstraint rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/Evaluation
+hint:Evaluation rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/Experiment
+hint:Experiment rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ExplanationTask
+hint:ExplanationTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/FairAccurateVerdictGoal
+hint:FairAccurateVerdictGoal rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/FairOutcomeMetric
+hint:FairOutcomeMetric rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/GuideIntent
+hint:GuideIntent rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/HypothesisComparisonTask
+hint:HypothesisComparisonTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/IndustrialAndServiceRoboticsDomain
+hint:IndustrialAndServiceRoboticsDomain rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/LawAndPolicyDomain
+hint:LawAndPolicyDomain rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/LearnerRole
+hint:LearnerRole rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/LearningAdaptationCapability
+hint:LearningAdaptationCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/MedicalDomain
+hint:MedicalDomain rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/MetaAnalysisCapability
+hint:MetaAnalysisCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/NegotiationIntent
+hint:NegotiationIntent rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/OnlineLearningContext
+hint:OnlineLearningContext rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/PatternLearningCapability
+hint:PatternLearningCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/PerceptionSensingCapability
+hint:PerceptionSensingCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/PhysicalManipulationCapability
+hint:PhysicalManipulationCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ProvideLearningHistoryTaskExecution
+hint:ProvideLearningHistoryTaskExecution rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/ReasoningCapability
+hint:ReasoningCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/SafeRetrievalGoal
+hint:SafeRetrievalGoal rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/SituationalAssessmentTask
+hint:SituationalAssessmentTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/SituationalAwarenessCapability
+hint:SituationalAwarenessCapability rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/SymptomAnalysisTask
+hint:SymptomAnalysisTask rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/TaskExecution
+hint:TaskExecution rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/TextChatModality
+hint:TextChatModality rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/TransparencyConstraint
+hint:TransparencyConstraint rdf:type owl:NamedIndividual .
+
+
+###  https://w3id.org/hi-thesaurus/VerbalDialogueModality
+hint:VerbalDialogueModality rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q11030
+wd:Q11030 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q112222356
+wd:Q112222356 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q116197048
+wd:Q116197048 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q17067559
+wd:Q17067559 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q1987589
+wd:Q1987589 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q277633
+wd:Q277633 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q379689
+wd:Q379689 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q384014
+wd:Q384014 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q3907282
+wd:Q3907282 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q628967
+wd:Q628967 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q6952366
+wd:Q6952366 rdf:type owl:NamedIndividual .
+
+
+###  https://www.wikidata.org/entity/Q797819
+wd:Q797819 rdf:type owl:NamedIndividual .
+
+
+[ rdf:type schema:Organization ;
+  schema:name "Knowledge in AI (KAI) Group - Vrije Universiteit Amsterdam"
+] .
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+   owl:members ( hi:BabyBoomer
+                 hi:GenerationX
+                 hi:GenerationY
+                 hi:GenerationZ
+               )
+ ] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
